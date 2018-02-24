@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message PAuthMessage {
+
+    string login = 1;
+    string password = 2;
+}
+
+message PHelloMessage {
+
+    string name = 1;
+}
