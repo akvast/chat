@@ -34,7 +34,7 @@ int main() {
                 std::cin >> email;
                 std::cout << "Enter password: ";
                 std::cin >> password;
-                handler->send_authorize(client, email, password);
+                handler->send_authorize(email, password);
                 break;
             }
             case 2: {
@@ -44,7 +44,7 @@ int main() {
                 std::cin >> email;
                 std::cout << "Enter password: ";
                 std::cin >> password;
-                handler->send_register(client, email, password);
+                handler->send_register(email, password);
                 break;
             }
             default:

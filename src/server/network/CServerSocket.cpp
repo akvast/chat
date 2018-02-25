@@ -30,14 +30,19 @@ namespace server {
         auto socket = client->get_socket();
 
         _acceptor->async_accept(*socket, boost::bind(&CServerSocket::handle_accept, this,
-                                                     client,
+                                                     client, handler,
                                                      boost::asio::placeholders::error));
     }
 
-    void CServerSocket::handle_accept(std::shared_ptr<CClientSocket> client, const boost::system::error_code &) {
+    void CServerSocket::handle_accept(std::shared_ptr<CClientSocket> client,
+                                      std::shared_ptr<CServerSocketHandler> handler,
+                                      const boost::system::error_code &) {
         CLog::d("Socket accepted.");
         _clients.push_back(client);
+
+        handler->on_connected(client);
         client->start_read();
+
         start_accept();
     }
 

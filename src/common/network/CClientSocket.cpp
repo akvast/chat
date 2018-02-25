@@ -136,7 +136,7 @@ namespace common {
 
         auto message = std::make_shared<CMessage>(opCode, messageData);
         if (_handler)
-            _handler->on_message(shared_from_this(), message);
+            _handler->on_message(message);
 
         return messageSize + 4;
     }

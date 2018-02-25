@@ -25,32 +25,39 @@ namespace server {
         ecies_key_free(_ecKey);
     }
 
-    void CServerSocketHandler::on_connected(std::shared_ptr<CClientSocket> socket) {
-
-    }
-
-    void CServerSocketHandler::on_message(std::shared_ptr<CClientSocket> socket, std::shared_ptr<CMessage> message) {
+    void CServerSocketHandler::on_message(std::shared_ptr<CMessage> message) {
         switch (message->get_op_code()) {
+
+            // Handshake:
+
             case COpCode::HandshakeInit:
-                send_public_key(socket);
+                send_public_key();
                 break;
             case COpCode::HandshakeClientKey:
-                handle_encrypt_key(socket, message->get_data());
-                send_decrypt_key(socket);
+                handle_encrypt_key(message->get_data());
+                send_decrypt_key();
                 break;
+
+            // Packets:
+
             case COpCode::Authorize:
-                handle_auth(socket, message->get_data());
+                handle_auth(message);
                 break;
             case COpCode::Register:
-                handle_register(socket, message->get_data());
+                handle_register(message);
                 break;
+
             default:
                 CLog::d("Unknown packet: " + std::to_string(static_cast<uint16_t>(message->get_op_code())));
                 break;
         }
     }
 
-    void CServerSocketHandler::send_auth_secceed(std::shared_ptr<CClientSocket> socket, std::string name) {
+    void CServerSocketHandler::send_auth_secceed(std::string name) {
+        auto socket = get_socket();
+        if (!socket)
+            return;
+
         auto message = std::make_shared<PAuthSucceedMessage>();
         message->set_name(name);
 
@@ -59,12 +66,19 @@ namespace server {
 
     // Private:
 
-    void CServerSocketHandler::send_public_key(std::shared_ptr<CClientSocket> socket) const {
+    void CServerSocketHandler::send_public_key() const {
+        auto socket = get_socket();
+        if (!socket)
+            return;
+
         auto data = std::vector<uint8_t>(_publicEcKey.first, _publicEcKey.first + _publicEcKey.second);
         socket->send(std::make_shared<CMessage>(COpCode::HandshakePublicKey, data));
     }
 
-    void CServerSocketHandler::handle_encrypt_key(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data) {
+    void CServerSocketHandler::handle_encrypt_key(std::vector<uint8_t> data) {
+        auto socket = get_socket();
+        if (!socket)
+            return;
 
         // Generate private HEX ECDH key from binary
         auto ecKey = (char *) malloc(_privateEcKey.second * 2 + 1);
@@ -81,7 +95,11 @@ namespace server {
         free(ecKey);
     }
 
-    void CServerSocketHandler::send_decrypt_key(std::shared_ptr<CClientSocket> socket) {
+    void CServerSocketHandler::send_decrypt_key() {
+        auto socket = get_socket();
+        if (!socket)
+            return;
+
         // Generate AES decrypt key:
         auto decryptKey = std::vector<uint8_t>();
         decryptKey.resize(32);
@@ -93,38 +111,41 @@ namespace server {
         socket->send(std::make_shared<CMessage>(COpCode::HandshakeServerKey, decryptKey));
     }
 
-    void CServerSocketHandler::handle_auth(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data) {
+    void CServerSocketHandler::handle_auth(std::shared_ptr<CMessage> message) {
+        auto authMessage = parse<PAuthMessage>(message);
 
-        auto authMessage = std::make_shared<PAuthMessage>();
-        bool isParsed = authMessage->ParseFromArray(data.data(), data.size());
-
-        if (!isParsed) {
+        if (!authMessage) {
             CLog::d("Invalid AuthMessage packet received.");
-            socket->get_socket()->close();
             return;
         }
 
-        CLog::d("Received AuthMessage: " + authMessage->login() + " / " + authMessage->password());
-        CUsersManager::with_email(authMessage->login(), [=](std::shared_ptr<CUser> user) {
+        CLog::d("Received AuthMessage: %s / %s",
+                authMessage->email().c_str(),
+                authMessage->password().c_str());
+
+        CUsersManager::with_email(authMessage->email(), [=](std::shared_ptr<CUser> user) {
             if (user && user->password == authMessage->password()) {
-                send_auth_secceed(socket, user->name);
+                send_auth_secceed(user->name);
             } else {
-                socket->send(std::make_shared<CMessage>(COpCode::AuthError, std::vector<uint8_t>{}));
+                auto errorMessage = std::make_shared<PErrorMessage>();
+                errorMessage->set_code(1); // TODO: Code
+                errorMessage->set_message("Invalid email or password");
+                send(COpCode::AuthError, errorMessage);
             }
         });
     }
 
-    void CServerSocketHandler::handle_register(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data) {
-        auto message = std::make_shared<PRegisterMessage>();
-        bool isParsed = message->ParseFromArray(data.data(), data.size());
+    void CServerSocketHandler::handle_register(std::shared_ptr<CMessage> message) {
+        auto registerMessage = parse<PRegisterMessage>(message);
 
-        if (!isParsed) {
+        if (!registerMessage) {
             CLog::d("Invalid RegisterMessage packet received.");
-            socket->get_socket()->close();
             return;
         }
 
-        CLog::d("Received RegisterMessage: %s / %s", message->email().c_str(), message->password().c_str());
+        CLog::d("Received RegisterMessage: %s / %s",
+                registerMessage->email().c_str(),
+                registerMessage->password().c_str());
 
         // TODO: Implement registration
 
@@ -132,7 +153,7 @@ namespace server {
         error->set_code(1);
         error->set_message("Not yet implemented.");
 
-        socket->send(std::make_shared<CMessage>(COpCode::RegisterError, error));
+        send(COpCode::RegisterError, error);
     }
 
 }

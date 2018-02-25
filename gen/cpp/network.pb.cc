@@ -39,7 +39,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAuthMessage, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAuthMessage, login_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAuthMessage, email_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAuthMessage, password_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PAuthSucceedMessage, _internal_metadata_),
@@ -125,7 +125,7 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\rnetwork.proto\"/\n\014PAuthMessage\022\r\n\005login"
+      "\n\rnetwork.proto\"/\n\014PAuthMessage\022\r\n\005email"
       "\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"#\n\023PAuthSucceed"
       "Message\022\014\n\004name\030\001 \001(\t\"3\n\020PRegisterMessag"
       "e\022\r\n\005email\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\".\n\rPE"
@@ -156,7 +156,7 @@ struct StaticDescriptorInitializer {
 // ===================================================================
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int PAuthMessage::kLoginFieldNumber;
+const int PAuthMessage::kEmailFieldNumber;
 const int PAuthMessage::kPasswordFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
@@ -173,9 +173,9 @@ PAuthMessage::PAuthMessage(const PAuthMessage& from)
       _internal_metadata_(NULL),
       _cached_size_(0) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  login_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.login().size() > 0) {
-    login_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.login_);
+  email_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.email().size() > 0) {
+    email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.email_);
   }
   password_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   if (from.password().size() > 0) {
@@ -185,7 +185,7 @@ PAuthMessage::PAuthMessage(const PAuthMessage& from)
 }
 
 void PAuthMessage::SharedCtor() {
-  login_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  email_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   password_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   _cached_size_ = 0;
 }
@@ -196,7 +196,7 @@ PAuthMessage::~PAuthMessage() {
 }
 
 void PAuthMessage::SharedDtor() {
-  login_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  email_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   password_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -225,7 +225,7 @@ PAuthMessage* PAuthMessage::New(::google::protobuf::Arena* arena) const {
 
 void PAuthMessage::Clear() {
 // @@protoc_insertion_point(message_clear_start:PAuthMessage)
-  login_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   password_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
@@ -239,15 +239,15 @@ bool PAuthMessage::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // string login = 1;
+      // string email = 1;
       case 1: {
         if (tag == 10u) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_login()));
+                input, this->mutable_email()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-            this->login().data(), this->login().length(),
+            this->email().data(), this->email().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
-            "PAuthMessage.login"));
+            "PAuthMessage.email"));
         } else {
           goto handle_unusual;
         }
@@ -293,14 +293,14 @@ failure:
 void PAuthMessage::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:PAuthMessage)
-  // string login = 1;
-  if (this->login().size() > 0) {
+  // string email = 1;
+  if (this->email().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->login().data(), this->login().length(),
+      this->email().data(), this->email().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "PAuthMessage.login");
+      "PAuthMessage.email");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->login(), output);
+      1, this->email(), output);
   }
 
   // string password = 2;
@@ -320,15 +320,15 @@ void PAuthMessage::SerializeWithCachedSizes(
     bool deterministic, ::google::protobuf::uint8* target) const {
   (void)deterministic;  // Unused
   // @@protoc_insertion_point(serialize_to_array_start:PAuthMessage)
-  // string login = 1;
-  if (this->login().size() > 0) {
+  // string email = 1;
+  if (this->email().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-      this->login().data(), this->login().length(),
+      this->email().data(), this->email().length(),
       ::google::protobuf::internal::WireFormatLite::SERIALIZE,
-      "PAuthMessage.login");
+      "PAuthMessage.email");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->login(), target);
+        1, this->email(), target);
   }
 
   // string password = 2;
@@ -350,11 +350,11 @@ size_t PAuthMessage::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:PAuthMessage)
   size_t total_size = 0;
 
-  // string login = 1;
-  if (this->login().size() > 0) {
+  // string email = 1;
+  if (this->email().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->login());
+        this->email());
   }
 
   // string password = 2;
@@ -390,9 +390,9 @@ void PAuthMessage::MergeFrom(const PAuthMessage& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:PAuthMessage)
   GOOGLE_DCHECK_NE(&from, this);
   _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.login().size() > 0) {
+  if (from.email().size() > 0) {
 
-    login_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.login_);
+    email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.email_);
   }
   if (from.password().size() > 0) {
 
@@ -423,7 +423,7 @@ void PAuthMessage::Swap(PAuthMessage* other) {
   InternalSwap(other);
 }
 void PAuthMessage::InternalSwap(PAuthMessage* other) {
-  login_.Swap(&other->login_);
+  email_.Swap(&other->email_);
   password_.Swap(&other->password_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -436,56 +436,56 @@ void PAuthMessage::InternalSwap(PAuthMessage* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // PAuthMessage
 
-// string login = 1;
-void PAuthMessage::clear_login() {
-  login_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// string email = 1;
+void PAuthMessage::clear_email() {
+  email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& PAuthMessage::login() const {
-  // @@protoc_insertion_point(field_get:PAuthMessage.login)
-  return login_.GetNoArena();
+const ::std::string& PAuthMessage::email() const {
+  // @@protoc_insertion_point(field_get:PAuthMessage.email)
+  return email_.GetNoArena();
 }
-void PAuthMessage::set_login(const ::std::string& value) {
+void PAuthMessage::set_email(const ::std::string& value) {
   
-  login_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:PAuthMessage.login)
+  email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:PAuthMessage.email)
 }
 #if LANG_CXX11
-void PAuthMessage::set_login(::std::string&& value) {
+void PAuthMessage::set_email(::std::string&& value) {
   
-  login_.SetNoArena(
+  email_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:PAuthMessage.login)
+  // @@protoc_insertion_point(field_set_rvalue:PAuthMessage.email)
 }
 #endif
-void PAuthMessage::set_login(const char* value) {
+void PAuthMessage::set_email(const char* value) {
   
-  login_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:PAuthMessage.login)
+  email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:PAuthMessage.email)
 }
-void PAuthMessage::set_login(const char* value, size_t size) {
+void PAuthMessage::set_email(const char* value, size_t size) {
   
-  login_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+  email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:PAuthMessage.login)
+  // @@protoc_insertion_point(field_set_pointer:PAuthMessage.email)
 }
-::std::string* PAuthMessage::mutable_login() {
+::std::string* PAuthMessage::mutable_email() {
   
-  // @@protoc_insertion_point(field_mutable:PAuthMessage.login)
-  return login_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  // @@protoc_insertion_point(field_mutable:PAuthMessage.email)
+  return email_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* PAuthMessage::release_login() {
-  // @@protoc_insertion_point(field_release:PAuthMessage.login)
+::std::string* PAuthMessage::release_email() {
+  // @@protoc_insertion_point(field_release:PAuthMessage.email)
   
-  return login_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  return email_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void PAuthMessage::set_allocated_login(::std::string* login) {
-  if (login != NULL) {
+void PAuthMessage::set_allocated_email(::std::string* email) {
+  if (email != NULL) {
     
   } else {
     
   }
-  login_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), login);
-  // @@protoc_insertion_point(field_set_allocated:PAuthMessage.login)
+  email_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), email);
+  // @@protoc_insertion_point(field_set_allocated:PAuthMessage.email)
 }
 
 // string password = 2;

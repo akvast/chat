@@ -13,6 +13,8 @@ using namespace common;
 
 namespace server {
 
+    class CServerSocketHandler;
+
     class CServerSocket {
 
         std::shared_ptr<boost::asio::io_service> _ioService;
@@ -28,7 +30,9 @@ namespace server {
 
         void start_accept();
 
-        void handle_accept(std::shared_ptr<CClientSocket> client, const boost::system::error_code &error);
+        void handle_accept(std::shared_ptr<CClientSocket> client,
+                           std::shared_ptr<CServerSocketHandler> handler,
+                           const boost::system::error_code &error);
 
     };
 

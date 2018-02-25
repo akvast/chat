@@ -23,23 +23,25 @@ namespace server {
 
         ~CServerSocketHandler();
 
-        void on_connected(std::shared_ptr<CClientSocket> socket) override;
+        void on_message(std::shared_ptr<CMessage> message) override;
 
-        void on_message(std::shared_ptr<CClientSocket> socket, std::shared_ptr<CMessage> message) override;
-
-        void send_auth_secceed(std::shared_ptr<CClientSocket> socket, std::string name);
+        void send_auth_secceed(std::string name);
 
     private:
 
-        void send_public_key(std::shared_ptr<CClientSocket> socket) const;
+        // Handshake:
 
-        void handle_encrypt_key(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data);
+        void send_public_key() const;
 
-        void send_decrypt_key(std::shared_ptr<CClientSocket> socket);
+        void handle_encrypt_key(std::vector<uint8_t> data);
 
-        void handle_auth(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data);
+        void send_decrypt_key();
 
-        void handle_register(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data);
+        // Packets:
+
+        void handle_auth(std::shared_ptr<CMessage> message);
+
+        void handle_register(std::shared_ptr<CMessage> message);
 
     };
 
