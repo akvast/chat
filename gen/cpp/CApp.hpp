@@ -20,6 +20,8 @@ public:
     virtual void set_multithread_support(const std::shared_ptr<CMultithreadSupport> & multithread_support) = 0;
 
     virtual void connect(const std::string & host, int32_t port) = 0;
+
+    virtual void auth(const std::string & email, const std::string & password) = 0;
 };
 
 }  // namespace generated

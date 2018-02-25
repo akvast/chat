@@ -10,6 +10,8 @@ public abstract class CApp {
 
     public abstract void connect(String host, int port);
 
+    public abstract void auth(String email, String password);
+
     public static native CApp instance();
 
     private static final class CppProxy extends CApp
@@ -50,5 +52,13 @@ public abstract class CApp {
             native_connect(this.nativeRef, host, port);
         }
         private native void native_connect(long _nativeRef, String host, int port);
+
+        @Override
+        public void auth(String email, String password)
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            native_auth(this.nativeRef, email, password);
+        }
+        private native void native_auth(long _nativeRef, String email, String password);
     }
 }

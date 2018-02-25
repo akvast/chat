@@ -15,4 +15,7 @@
 - (void)connect:(nonnull NSString *)host
            port:(int32_t)port;
 
+- (void)auth:(nonnull NSString *)email
+    password:(nonnull NSString *)password;
+
 @end

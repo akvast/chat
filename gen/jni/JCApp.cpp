@@ -48,4 +48,14 @@ CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_nat
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 
+CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_native_1auth(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_email, jstring j_password)
+{
+    try {
+        DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::generated::CApp>(nativeRef);
+        ref->auth(::djinni::String::toCpp(jniEnv, j_email),
+                  ::djinni::String::toCpp(jniEnv, j_password));
+    } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
+}
+
 }  // namespace djinni_generated

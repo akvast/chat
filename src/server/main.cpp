@@ -13,7 +13,7 @@ int main() {
     CDatabase::init(ioService);
     CDatabase::connect("127.0.0.1", "root", "password", "chat");
 
-    auto server = std::make_shared<CServerSocket>(ioService, 8866);
+    auto server = std::make_shared<CServerSocket>(ioService, 8080);
 
     ioService->run();
     return 0;

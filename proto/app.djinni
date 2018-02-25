@@ -7,4 +7,6 @@ c_app = interface +c {
     set_multithread_support(multithread_support: c_multithread_support);
 
     connect(host: string, port: i32);
+
+    auth(email: string, password: string);
 }
