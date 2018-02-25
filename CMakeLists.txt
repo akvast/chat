@@ -27,6 +27,7 @@ AUX_SOURCE_DIRECTORY(./src/server/managers SERVER_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/server/tools SERVER_SOURCES)
 
 AUX_SOURCE_DIRECTORY(./src/client CLIENT_SOURCES)
+AUX_SOURCE_DIRECTORY(./src/client/app CLIENT_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/client/network CLIENT_SOURCES)
 
 include_directories(gen/cpp)
@@ -44,6 +45,7 @@ include_directories(src/server/managers)
 include_directories(src/server/tools)
 
 include_directories(src/client)
+include_directories(src/client/app)
 include_directories(src/client/network)
 
 # BOOST

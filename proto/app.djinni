@@ -1,0 +1,10 @@
+@import "multithread.djinni"
+
+c_app = interface +c {
+
+    static instance(): c_app;
+
+    set_multithread_support(multithread_support: c_multithread_support);
+
+    connect(host: string, port: i32);
+}

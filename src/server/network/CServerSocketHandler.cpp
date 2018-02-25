@@ -38,7 +38,7 @@ namespace server {
                 send_decrypt_key();
                 break;
 
-            // Packets:
+                // Packets:
 
             case COpCode::Authorize:
                 handle_auth(message);
@@ -48,7 +48,7 @@ namespace server {
                 break;
 
             default:
-                CLog::d("Unknown packet: " + std::to_string(static_cast<uint16_t>(message->get_op_code())));
+                CLog::d("Unknown packet: %" PRId16, static_cast<uint16_t>(message->get_op_code()));
                 break;
         }
     }

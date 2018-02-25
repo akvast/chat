@@ -48,7 +48,7 @@ namespace client {
                 break;
 
             default:
-                CLog::d("Received unknown message: " + std::to_string(static_cast<uint16_t>(message->get_op_code())));
+                CLog::d("Received unknown message: %" PRId16, static_cast<uint16_t>(message->get_op_code()));
                 break;
         }
     }

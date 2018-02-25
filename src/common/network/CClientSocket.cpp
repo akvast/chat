@@ -89,7 +89,7 @@ namespace common {
     }
 
     void CClientSocket::read_handler(const boost::system::error_code &error, std::size_t bytesTransferred) {
-        CLog::d("Received " + std::to_string(bytesTransferred) + " bytes.");
+        CLog::d("Received %zu bytes.", bytesTransferred);
 
         if (bytesTransferred > 0) {
             uint8_t *pointer = _receivedBuffer.data();
@@ -116,7 +116,7 @@ namespace common {
     }
 
     void CClientSocket::send_handler(const boost::system::error_code &error, std::size_t bytesTransferred) {
-        CLog::d("Sent " + std::to_string(bytesTransferred) + " bytes.");
+        CLog::d("Sent %zu bytes.", bytesTransferred);
     }
 
     std::size_t CClientSocket::parse_next_message(const uint8_t *data, std::size_t size) {
