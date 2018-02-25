@@ -9,7 +9,7 @@
 
 namespace generated {
 
-class CMultithreadSupport;
+class CConcurrency;
 
 class CApp {
 public:
@@ -17,11 +17,17 @@ public:
 
     static std::shared_ptr<CApp> instance();
 
-    virtual void set_multithread_support(const std::shared_ptr<CMultithreadSupport> & multithread_support) = 0;
+    virtual void set_concurrency(const std::shared_ptr<CConcurrency> & concurrency) = 0;
 
-    virtual void connect(const std::string & host, int32_t port) = 0;
+    virtual void set_host(const std::string & host) = 0;
 
-    virtual void auth(const std::string & email, const std::string & password) = 0;
+    virtual void set_port(int32_t port) = 0;
+
+    virtual void set_email(const std::string & email) = 0;
+
+    virtual void set_password(const std::string & password) = 0;
+
+    virtual void connect() = 0;
 };
 
 }  // namespace generated

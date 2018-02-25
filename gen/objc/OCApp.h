@@ -3,19 +3,23 @@
 
 #import <Foundation/Foundation.h>
 @class OCApp;
-@protocol OCMultithreadSupport;
+@protocol OCConcurrency;
 
 
 @interface OCApp : NSObject
 
 + (nullable OCApp *)instance;
 
-- (void)setMultithreadSupport:(nullable id<OCMultithreadSupport>)multithreadSupport;
+- (void)setConcurrency:(nullable id<OCConcurrency>)concurrency;
 
-- (void)connect:(nonnull NSString *)host
-           port:(int32_t)port;
+- (void)setHost:(nonnull NSString *)host;
 
-- (void)auth:(nonnull NSString *)email
-    password:(nonnull NSString *)password;
+- (void)setPort:(int32_t)port;
+
+- (void)setEmail:(nonnull NSString *)email;
+
+- (void)setPassword:(nonnull NSString *)password;
+
+- (void)connect;
 
 @end

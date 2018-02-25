@@ -1,6 +1,6 @@
 #include <boost/asio.hpp>
 #include <iostream>
-#include "CServerSocket.h"
+#include "CServer.h"
 #include "CDatabase.h"
 
 using namespace server;
@@ -13,7 +13,7 @@ int main() {
     CDatabase::init(ioService);
     CDatabase::connect("127.0.0.1", "root", "password", "chat");
 
-    auto server = std::make_shared<CServerSocket>(ioService, 8080);
+    auto server = std::make_shared<CServer>(ioService, 8080);
 
     ioService->run();
     return 0;

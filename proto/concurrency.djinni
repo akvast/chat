@@ -1,0 +1,8 @@
+@import "common.djinni"
+
+c_concurrency = interface {
+
+    start_thread(name: string, runnable: c_runnable);
+
+    execute_in_ui(runnable: c_runnable);
+}

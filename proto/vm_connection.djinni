@@ -1,0 +1,12 @@
+@import "vm_base.djinni"
+
+c_connection_view_model = interface +c {
+
+    static instance(): c_connection_view_model;
+
+    get_base(): c_view_model;
+
+    is_connected(): bool;
+    is_connecting(): bool;
+    is_auth_failed(): bool;
+}

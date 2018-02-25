@@ -1,8 +1,0 @@
-@import "common.djinni"
-
-c_multithread_support = interface {
-
-    start_thread(name: string, callback: c_callback);
-
-    execute_in_ui(callback: c_callback);
-}

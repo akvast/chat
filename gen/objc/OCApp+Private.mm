@@ -6,7 +6,7 @@
 #import "DJICppWrapperCache+Private.h"
 #import "DJIError.h"
 #import "DJIMarshal+Private.h"
-#import "OCMultithreadSupport+Private.h"
+#import "OCConcurrency+Private.h"
 #include <exception>
 #include <stdexcept>
 #include <utility>
@@ -38,25 +38,39 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
-- (void)setMultithreadSupport:(nullable id<OCMultithreadSupport>)multithreadSupport {
+- (void)setConcurrency:(nullable id<OCConcurrency>)concurrency {
     try {
-        _cppRefHandle.get()->set_multithread_support(::djinni_generated::CMultithreadSupport::toCpp(multithreadSupport));
+        _cppRefHandle.get()->set_concurrency(::djinni_generated::CConcurrency::toCpp(concurrency));
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
-- (void)connect:(nonnull NSString *)host
-           port:(int32_t)port {
+- (void)setHost:(nonnull NSString *)host {
     try {
-        _cppRefHandle.get()->connect(::djinni::String::toCpp(host),
-                                     ::djinni::I32::toCpp(port));
+        _cppRefHandle.get()->set_host(::djinni::String::toCpp(host));
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
-- (void)auth:(nonnull NSString *)email
-    password:(nonnull NSString *)password {
+- (void)setPort:(int32_t)port {
     try {
-        _cppRefHandle.get()->auth(::djinni::String::toCpp(email),
-                                  ::djinni::String::toCpp(password));
+        _cppRefHandle.get()->set_port(::djinni::I32::toCpp(port));
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (void)setEmail:(nonnull NSString *)email {
+    try {
+        _cppRefHandle.get()->set_email(::djinni::String::toCpp(email));
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (void)setPassword:(nonnull NSString *)password {
+    try {
+        _cppRefHandle.get()->set_password(::djinni::String::toCpp(password));
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (void)connect {
+    try {
+        _cppRefHandle.get()->connect();
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 

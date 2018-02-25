@@ -4,8 +4,7 @@
 
 #include <cinttypes>
 #include "CAppImpl.h"
-#include "CClosureCallback.h"
-#include "CLog.h"
+#include "CClosureRunnable.h"
 
 namespace generated {
 
@@ -22,29 +21,46 @@ namespace client {
         return s_instance;
     }
 
-    void CAppImpl::set_multithread_support(const std::shared_ptr<CMultithreadSupport> &multithread_support) {
-        _multithread = multithread_support;
+    void CAppImpl::set_concurrency(const std::shared_ptr<CConcurrency> &concurrency) {
+        _concurrency = concurrency;
+        _connection = CConnection::instance();
     }
 
-    void CAppImpl::connect(const std::string &host, int32_t port) {
-        CLog::d("Connect to %s : %" PRId32, host.c_str(), port);
-
-        _ioService = std::make_shared<boost::asio::io_service>();
-        _worker = std::make_shared<boost::asio::io_service::work>(*_ioService);
-
-        _handler = std::make_shared<CClientSocketHandler>();
-        _client = std::make_shared<CClientSocket>(_ioService, _handler);
-
-        _multithread->start_thread("Client", std::make_shared<CClosureCallback>([=]() {
-            CLog::d("Client thread started!");
-            _ioService->run();
-        }));
-
-        _client->connect(host, static_cast<int16_t>(port));
+    void CAppImpl::set_host(const std::string &host) {
+        _connection->set_host(host);
     }
 
-    void CAppImpl::auth(const std::string &email, const std::string &password) {
-        _handler->send_authorize(email, password);
+    void CAppImpl::set_port(int32_t port) {
+        _connection->set_port(static_cast<int16_t>(port));
+    }
+
+    void CAppImpl::set_email(const std::string &email) {
+        _email = email;
+    }
+
+    std::string CAppImpl::get_email() const {
+        return _email;
+    }
+
+    void CAppImpl::set_password(const std::string &password) {
+        _password = password;
+    }
+
+    std::string CAppImpl::get_password() const {
+        return _password;
+    }
+
+    void CAppImpl::connect() {
+        _connection->connect();
+    }
+
+    void CAppImpl::start_thread(const std::string &name, std::function<void()> runnable) {
+        if (_concurrency) {
+            _concurrency->start_thread(name, std::make_shared<CClosureRunnable>(runnable));
+            return;
+        }
+
+        // TODO: Add pending thread
     }
 
 }

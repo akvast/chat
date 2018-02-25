@@ -3,8 +3,8 @@
 #include <iostream>
 #include <thread>
 
-#include "CClientSocket.h"
-#include "CClientSocketHandler.h"
+#include "CClient.h"
+#include "CClientHandler.h"
 
 using namespace client;
 using namespace common;
@@ -13,9 +13,9 @@ int main() {
     auto ioService = std::make_shared<boost::asio::io_service>();
     auto worker = std::make_shared<boost::asio::io_service::work>(*ioService);
 
-    auto handler = std::make_shared<CClientSocketHandler>();
-    auto client = std::make_shared<CClientSocket>(ioService, handler);
-    client->connect("127.0.0.1", 8866);
+    auto handler = std::make_shared<CClientHandler>();
+    auto client = std::make_shared<CClient>(ioService, handler);
+    client->connect("127.0.0.1", 8080);
 
     std::thread([=]() {
         ioService->run();

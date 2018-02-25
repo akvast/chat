@@ -1,1 +1,4 @@
 @import "app.djinni"
+
+@import "vm_base.djinni"
+@import "vm_connection.djinni"

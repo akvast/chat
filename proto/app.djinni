@@ -1,12 +1,16 @@
-@import "multithread.djinni"
+@import "concurrency.djinni"
 
 c_app = interface +c {
 
     static instance(): c_app;
 
-    set_multithread_support(multithread_support: c_multithread_support);
+    set_concurrency(concurrency: c_concurrency);
 
-    connect(host: string, port: i32);
+    set_host(host: string);
+    set_port(port: i32);
 
-    auth(email: string, password: string);
+    set_email(email: string);
+    set_password(password: string);
+
+    connect();
 }

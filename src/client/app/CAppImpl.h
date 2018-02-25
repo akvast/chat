@@ -7,9 +7,8 @@
 #include <boost/asio.hpp>
 
 #include "CApp.hpp"
-#include "CMultithreadSupport.hpp"
-#include "CClientSocket.h"
-#include "CClientSocketHandler.h"
+#include "CConnection.h"
+#include "CConcurrency.hpp"
 
 using namespace generated;
 
@@ -18,23 +17,34 @@ namespace client {
     class CAppImpl
             : public CApp {
 
-        std::shared_ptr<boost::asio::io_service> _ioService;
-        std::shared_ptr<boost::asio::io_service::work> _worker;
+        std::shared_ptr<CConcurrency> _concurrency;
 
-        std::shared_ptr<CClientSocket> _client;
-        std::shared_ptr<CClientSocketHandler> _handler;
+        std::shared_ptr<CConnection> _connection;
 
-        std::shared_ptr<CMultithreadSupport> _multithread;
+        std::string _email;
+        std::string _password;
 
     public:
 
         static std::shared_ptr<CAppImpl> instance();
 
-        void set_multithread_support(const std::shared_ptr<CMultithreadSupport> &multithread_support) override;
+        void set_concurrency(const std::shared_ptr<CConcurrency> &concurrency) override;
 
-        void connect(const std::string &host, int32_t port) override;
+        void set_host(const std::string &host) override;
 
-        void auth(const std::string &email, const std::string &password) override;
+        void set_port(int32_t port) override;
+
+        void set_email(const std::string &email) override;
+
+        std::string get_email() const;
+
+        void set_password(const std::string &password) override;
+
+        std::string get_password() const;
+
+        void connect() override;
+
+        void start_thread(const std::string &name, std::function<void()> runnable);
 
     };
 

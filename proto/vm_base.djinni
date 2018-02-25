@@ -1,0 +1,11 @@
+
+c_view_model = interface +c {
+
+    add_listener(listener: c_view_model_listener);
+    remove_listener(listener: c_view_model_listener);
+}
+
+c_view_model_listener = interface {
+
+    on_changed();
+}

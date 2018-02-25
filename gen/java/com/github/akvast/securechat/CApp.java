@@ -6,11 +6,17 @@ package com.github.akvast.securechat;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class CApp {
-    public abstract void setMultithreadSupport(CMultithreadSupport multithreadSupport);
+    public abstract void setConcurrency(CConcurrency concurrency);
 
-    public abstract void connect(String host, int port);
+    public abstract void setHost(String host);
 
-    public abstract void auth(String email, String password);
+    public abstract void setPort(int port);
+
+    public abstract void setEmail(String email);
+
+    public abstract void setPassword(String password);
+
+    public abstract void connect();
 
     public static native CApp instance();
 
@@ -38,27 +44,51 @@ public abstract class CApp {
         }
 
         @Override
-        public void setMultithreadSupport(CMultithreadSupport multithreadSupport)
+        public void setConcurrency(CConcurrency concurrency)
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
-            native_setMultithreadSupport(this.nativeRef, multithreadSupport);
+            native_setConcurrency(this.nativeRef, concurrency);
         }
-        private native void native_setMultithreadSupport(long _nativeRef, CMultithreadSupport multithreadSupport);
+        private native void native_setConcurrency(long _nativeRef, CConcurrency concurrency);
 
         @Override
-        public void connect(String host, int port)
+        public void setHost(String host)
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
-            native_connect(this.nativeRef, host, port);
+            native_setHost(this.nativeRef, host);
         }
-        private native void native_connect(long _nativeRef, String host, int port);
+        private native void native_setHost(long _nativeRef, String host);
 
         @Override
-        public void auth(String email, String password)
+        public void setPort(int port)
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
-            native_auth(this.nativeRef, email, password);
+            native_setPort(this.nativeRef, port);
         }
-        private native void native_auth(long _nativeRef, String email, String password);
+        private native void native_setPort(long _nativeRef, int port);
+
+        @Override
+        public void setEmail(String email)
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            native_setEmail(this.nativeRef, email);
+        }
+        private native void native_setEmail(long _nativeRef, String email);
+
+        @Override
+        public void setPassword(String password)
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            native_setPassword(this.nativeRef, password);
+        }
+        private native void native_setPassword(long _nativeRef, String password);
+
+        @Override
+        public void connect()
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            native_connect(this.nativeRef);
+        }
+        private native void native_connect(long _nativeRef);
     }
 }
