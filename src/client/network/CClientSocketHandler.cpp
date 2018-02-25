@@ -19,26 +19,27 @@ using namespace common;
 namespace client {
 
     void CClientSocketHandler::on_connected(std::shared_ptr<CClientSocket> socket) {
-        auto message = std::make_shared<CMessage>(1, std::vector<uint8_t>{0, 1, 2, 3});
+        auto message = std::make_shared<CMessage>(COpCode::HandshakeInit, nullptr);
         socket->send(message);
     }
 
     void CClientSocketHandler::on_message(std::shared_ptr<CClientSocket> socket, std::shared_ptr<CMessage> message) {
-        switch (message->get_op_code()) {
-            case 1:
+
+        switch (COpCode(message->get_op_code())) {
+            case COpCode::HandshakePublicKey:
                 send_decrypt_key(socket, message->get_data());
                 break;
-            case 2:
-                handle_encrypt_key(socket, message->get_data());
+            case COpCode::HandshakeServerKey:
+                handle_server_key(socket, message->get_data());
                 break;
-            case 3:
+            case COpCode::AuthSucceed:
                 handle_hello(socket, message->get_data());
                 break;
-            case 4:
+            case COpCode::AuthError:
                 CLog::d("Invalid login / password.");
                 break;
             default:
-                CLog::d("Received unknown message: " + std::to_string(message->get_op_code()));
+                CLog::d("Received unknown message: " + std::to_string(static_cast<uint16_t>(message->get_op_code())));
                 break;
         }
     }
@@ -51,7 +52,7 @@ namespace client {
         message->set_login(login);
         message->set_password(password);
 
-        socket->send(std::make_shared<CMessage>(3, message));
+        socket->send(std::make_shared<CMessage>(COpCode::Authorize, message));
     }
 
     // Private:
@@ -80,12 +81,12 @@ namespace client {
         free(ecKey);
 
         // Send encrypted AES key
-        auto message = std::make_shared<CMessage>(2,
+        auto message = std::make_shared<CMessage>(COpCode::HandshakeClientKey,
                                                   std::vector<uint8_t>(secure, secure + secure_total_length(secure)));
         socket->send(message);
     }
 
-    void CClientSocketHandler::handle_encrypt_key(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data) {
+    void CClientSocketHandler::handle_server_key(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data) {
         // Save AES encrypt key
         socket->set_encrypt_key(std::move(data));
     }

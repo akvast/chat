@@ -51,7 +51,7 @@ namespace common {
 
         // Header: Packet Size & Op Code
         *(uint16_t *) sendBuffer.data() = static_cast<uint16_t>(data.size());
-        *(uint16_t *) (sendBuffer.data() + 2) = message->get_op_code();
+        *(uint16_t *) (sendBuffer.data() + 2) = static_cast<uint16_t>(message->get_op_code());
         // Body:
 
         if (!_encryptKey.empty()) {
@@ -124,12 +124,12 @@ namespace common {
         if (messageSize + 4 > size) {
             return 0;
         }
-        uint16_t opCode = *(data + 2);
+        auto opCode = static_cast<COpCode>(*((uint16_t *) (data + 2)));
         std::vector<uint8_t> messageData(data + 4, data + 4 + messageSize);
 
         if (!_decryptKey.empty()) {
             auto decrypted = aes_cbc_decrypt(messageData.data(), messageData.size(), _decryptKey.data());
-            auto pointer = static_cast<uint8_t*>(decrypted.first);
+            auto pointer = static_cast<uint8_t *>(decrypted.first);
             messageData = std::vector<uint8_t>(pointer, pointer + decrypted.second);
             free(decrypted.first);
         }

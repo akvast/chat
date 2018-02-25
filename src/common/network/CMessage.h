@@ -8,21 +8,23 @@
 #include <cstdint>
 #include <google/protobuf/message.h>
 
+#include "COpCode.h"
+
 namespace common {
 
     class CMessage {
 
-        uint16_t _opCode;
+        COpCode _opCode;
 
         std::vector<uint8_t> _data;
 
     public:
 
-        explicit CMessage(uint16_t opCode, const std::vector<uint8_t> &data);
+        explicit CMessage(COpCode opCode, const std::vector<uint8_t> &data);
 
-        explicit CMessage(uint16_t opCode, std::shared_ptr<google::protobuf::Message> message);
+        explicit CMessage(COpCode opCode, std::shared_ptr<google::protobuf::Message> message);
 
-        uint16_t get_op_code() const;
+        COpCode get_op_code() const;
 
         std::vector<uint8_t> get_data() const;
 

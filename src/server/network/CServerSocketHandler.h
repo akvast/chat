@@ -27,11 +27,11 @@ namespace server {
 
         void on_message(std::shared_ptr<CClientSocket> socket, std::shared_ptr<CMessage> message) override;
 
-        void send_hello(std::shared_ptr<CClientSocket> socket, std::string name);
+        void send_auth_secceed(std::shared_ptr<CClientSocket> socket, std::string name);
 
     private:
 
-        void send_hello(std::shared_ptr<CClientSocket> socket) const;
+        void send_public_key(std::shared_ptr<CClientSocket> socket) const;
 
         void handle_encrypt_key(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data);
 
