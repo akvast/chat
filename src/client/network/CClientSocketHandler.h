@@ -17,7 +17,9 @@ namespace client {
 
         void on_message(std::shared_ptr<CClientSocket> socket, std::shared_ptr<CMessage> message) override;
 
-        void send_auth(std::shared_ptr<CClientSocket> socket, std::string login, std::string password);
+        void send_authorize(std::shared_ptr<CClientSocket> socket, std::string email, std::string password);
+
+        void send_register(std::shared_ptr<CClientSocket> socket, std::string email, std::string password);
 
     private:
 
@@ -26,6 +28,8 @@ namespace client {
         void handle_server_key(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data);
 
         void handle_hello(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data);
+
+        void handle_registration_error(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data);
 
     };
 

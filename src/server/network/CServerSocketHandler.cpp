@@ -10,6 +10,7 @@
 #include "CLog.h"
 #include "network.pb.h"
 #include "CUsersManager.h"
+#include "CEmailTools.h"
 
 namespace server {
 
@@ -40,6 +41,9 @@ namespace server {
             case COpCode::Authorize:
                 handle_auth(socket, message->get_data());
                 break;
+            case COpCode::Register:
+                handle_register(socket, message->get_data());
+                break;
             default:
                 CLog::d("Unknown packet: " + std::to_string(static_cast<uint16_t>(message->get_op_code())));
                 break;
@@ -47,7 +51,7 @@ namespace server {
     }
 
     void CServerSocketHandler::send_auth_secceed(std::shared_ptr<CClientSocket> socket, std::string name) {
-        auto message = std::make_shared<PHelloMessage>();
+        auto message = std::make_shared<PAuthSucceedMessage>();
         message->set_name(name);
 
         socket->send(std::make_shared<CMessage>(COpCode::AuthSucceed, message));
@@ -95,19 +99,40 @@ namespace server {
         bool isParsed = authMessage->ParseFromArray(data.data(), data.size());
 
         if (!isParsed) {
-            CLog::d("Invalid packet received.");
+            CLog::d("Invalid AuthMessage packet received.");
             socket->get_socket()->close();
             return;
         }
 
         CLog::d("Received AuthMessage: " + authMessage->login() + " / " + authMessage->password());
-        CUsersManager::with_login(authMessage->login(), [=](std::shared_ptr<CUser> user) {
-            if (user && user->get_password() == authMessage->password()) {
-                send_auth_secceed(socket, user->get_name());
+        CUsersManager::with_email(authMessage->login(), [=](std::shared_ptr<CUser> user) {
+            if (user && user->password == authMessage->password()) {
+                send_auth_secceed(socket, user->name);
             } else {
                 socket->send(std::make_shared<CMessage>(COpCode::AuthError, std::vector<uint8_t>{}));
             }
         });
+    }
+
+    void CServerSocketHandler::handle_register(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data) {
+        auto message = std::make_shared<PRegisterMessage>();
+        bool isParsed = message->ParseFromArray(data.data(), data.size());
+
+        if (!isParsed) {
+            CLog::d("Invalid RegisterMessage packet received.");
+            socket->get_socket()->close();
+            return;
+        }
+
+        CLog::d("Received RegisterMessage: %s / %s", message->email().c_str(), message->password().c_str());
+
+        // TODO: Implement registration
+
+        auto error = std::make_shared<PErrorMessage>();
+        error->set_code(1);
+        error->set_message("Not yet implemented.");
+
+        socket->send(std::make_shared<CMessage>(COpCode::RegisterError, error));
     }
 
 }

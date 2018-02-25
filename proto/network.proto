@@ -6,7 +6,19 @@ message PAuthMessage {
     string password = 2;
 }
 
-message PHelloMessage {
+message PAuthSucceedMessage {
 
     string name = 1;
+}
+
+message PRegisterMessage {
+
+    string email = 1;
+    string password = 2;
+}
+
+message PErrorMessage {
+
+    int32 code = 1;
+    string message = 2;
 }

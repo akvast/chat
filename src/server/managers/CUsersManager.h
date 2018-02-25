@@ -20,7 +20,7 @@ namespace server {
 
         static void with_id(int32_t id, std::function<void(std::shared_ptr<CUser>)> callback);
 
-        static void with_login(std::string login, std::function<void(std::shared_ptr<CUser>)> callback);
+        static void with_email(std::string email, std::function<void(std::shared_ptr<CUser>)> callback);
 
     private:
 

@@ -6,9 +6,6 @@
 
 namespace common {
 
-    void CLog::d(const std::string &message) {
-        printf(message.c_str());
-        printf("\n");
-    }
+    std::mutex CLog::s_logMutex;
 
 }

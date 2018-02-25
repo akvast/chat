@@ -28,13 +28,23 @@ int main() {
 
         switch (cmd) {
             case 1: {
-                std::string login;
+                std::string email;
                 std::string password;
-                std::cout << "Enter login: ";
-                std::cin >> login;
+                std::cout << "Enter email: ";
+                std::cin >> email;
                 std::cout << "Enter password: ";
                 std::cin >> password;
-                handler->send_auth(client, login, password);
+                handler->send_authorize(client, email, password);
+                break;
+            }
+            case 2: {
+                std::string email;
+                std::string password;
+                std::cout << "Enter email: ";
+                std::cin >> email;
+                std::cout << "Enter password: ";
+                std::cin >> password;
+                handler->send_register(client, email, password);
                 break;
             }
             default:

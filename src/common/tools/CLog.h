@@ -5,14 +5,23 @@
 #pragma once
 
 #include <string>
+#include <mutex>
 
 namespace common {
 
     class CLog {
 
+        static std::mutex s_logMutex;
+
     public:
 
-        static void d(const std::string &message);
+        template<typename... Args>
+        static void d(const std::string &format, Args... args) {
+            s_logMutex.lock();
+            printf(format.c_str(), args...);
+            printf("\n");
+            s_logMutex.unlock();
+        }
 
     };
 

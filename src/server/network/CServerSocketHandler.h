@@ -39,6 +39,8 @@ namespace server {
 
         void handle_auth(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data);
 
+        void handle_register(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data);
+
     };
 
 }

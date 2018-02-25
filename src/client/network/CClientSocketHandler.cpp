@@ -38,21 +38,35 @@ namespace client {
             case COpCode::AuthError:
                 CLog::d("Invalid login / password.");
                 break;
+            case COpCode::RegisterError:
+                handle_registration_error(socket, message->get_data());
+                break;
             default:
                 CLog::d("Received unknown message: " + std::to_string(static_cast<uint16_t>(message->get_op_code())));
                 break;
         }
     }
 
-    void CClientSocketHandler::send_auth(std::shared_ptr<CClientSocket> socket,
-                                         std::string login,
-                                         std::string password) {
+    void CClientSocketHandler::send_authorize(std::shared_ptr<CClientSocket> socket,
+                                              std::string email,
+                                              std::string password) {
 
         auto message = std::make_shared<PAuthMessage>();
-        message->set_login(login);
+        message->set_login(email);
         message->set_password(password);
 
         socket->send(std::make_shared<CMessage>(COpCode::Authorize, message));
+    }
+
+    void CClientSocketHandler::send_register(std::shared_ptr<CClientSocket> socket,
+                                             std::string email,
+                                             std::string password) {
+
+        auto message = std::make_shared<PRegisterMessage>();
+        message->set_email(email);
+        message->set_password(password);
+
+        socket->send(std::make_shared<CMessage>(COpCode::Register, message));
     }
 
     // Private:
@@ -93,16 +107,31 @@ namespace client {
 
     void CClientSocketHandler::handle_hello(std::shared_ptr<CClientSocket> socket, std::vector<uint8_t> data) {
 
-        auto helloMessage = std::make_shared<PHelloMessage>();
+        auto helloMessage = std::make_shared<PAuthSucceedMessage>();
         bool isParsed = helloMessage->ParseFromArray(data.data(), data.size());
 
         if (!isParsed) {
-            CLog::d("Invalid packet received.");
+            CLog::d("Invalid AuthSucceedMessage packet received.");
             socket->get_socket()->close();
             return;
         }
 
-        CLog::d("PHelloMessage received: " + helloMessage->name());
+        CLog::d("HelloMessage received: " + helloMessage->name());
+    }
+
+    void CClientSocketHandler::handle_registration_error(std::shared_ptr<CClientSocket> socket,
+                                                         std::vector<uint8_t> data) {
+
+        auto message = std::make_shared<PErrorMessage>();
+        bool isParsed = message->ParseFromArray(data.data(), data.size());
+
+        if (!isParsed) {
+            CLog::d("Invalid ErrorMessage packet received.");
+            socket->get_socket()->close();
+            return;
+        }
+
+        CLog::d("ErrorMessage received: %" PRId32 " : %s", message->code(), message->message().c_str());
     }
 
 }
