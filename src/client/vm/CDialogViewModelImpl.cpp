@@ -1,0 +1,45 @@
+//
+// Created by alexander on 28.02.18.
+//
+
+#include "CDialogViewModelImpl.h"
+
+namespace client {
+
+    std::shared_ptr<CViewModel> CDialogViewModelImpl::get_base() {
+        return shared_from_this();
+    }
+
+    void CDialogViewModelImpl::set_avatar(std::string avatar) {
+        _avatar = std::move(avatar);
+    }
+
+    std::string CDialogViewModelImpl::get_avatar() {
+        return _avatar;
+    }
+
+    void CDialogViewModelImpl::set_title(std::string title) {
+        _title = std::move(title);
+    }
+
+    std::string CDialogViewModelImpl::get_title() {
+        return _title;
+    }
+
+    void CDialogViewModelImpl::set_last_message(std::string lastMessage) {
+        _lastMessage = std::move(lastMessage);
+    }
+
+    std::string CDialogViewModelImpl::get_last_message() {
+        return _lastMessage;
+    }
+
+    void CDialogViewModelImpl::set_is_online(bool isOnline) {
+        _isOnline = isOnline;
+    }
+
+    bool CDialogViewModelImpl::is_online() {
+        return _isOnline;
+    }
+
+}

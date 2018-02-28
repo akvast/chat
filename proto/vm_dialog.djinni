@@ -1,0 +1,11 @@
+@import "vm_base.djinni"
+
+c_dialog_view_model = interface +c {
+
+    get_base(): c_view_model;
+
+    get_avatar(): string;
+    get_title(): string;
+    get_last_message(): string;
+    is_online(): bool;
+}

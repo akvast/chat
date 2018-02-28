@@ -2,3 +2,6 @@
 
 @import "vm_base.djinni"
 @import "vm_connection.djinni"
+@import "vm_dialog.djinni"
+
+@import "adapter_dialogs.djinni"

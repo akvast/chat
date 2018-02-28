@@ -30,6 +30,7 @@ AUX_SOURCE_DIRECTORY(./src/client CLIENT_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/client/vm CLIENT_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/client/app CLIENT_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/client/network CLIENT_SOURCES)
+AUX_SOURCE_DIRECTORY(./src/client/adapters CLIENT_SOURCES)
 
 include_directories(gen/cpp)
 include_directories(src/common)
@@ -49,6 +50,7 @@ include_directories(src/client)
 include_directories(src/client/vm)
 include_directories(src/client/app)
 include_directories(src/client/network)
+include_directories(src/client/adapters)
 
 # BOOST
 

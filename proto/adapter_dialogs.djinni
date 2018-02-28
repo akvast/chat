@@ -1,0 +1,8 @@
+@import "vm_dialog.djinni"
+
+c_dialogs_adapter = interface +c {
+
+    static instance(): c_dialogs_adapter;
+
+    get_dialogs(): list<c_dialog_view_model>;
+}
