@@ -38,7 +38,6 @@ namespace server {
                                       std::shared_ptr<CServerHandler> handler,
                                       const boost::system::error_code &) {
         CLog::d("Socket accepted.");
-        _clients.push_back(client);
 
         handler->on_connected(client);
         client->start_read();

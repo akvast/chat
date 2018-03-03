@@ -10,8 +10,6 @@
 
 #include "CUser.h"
 
-using namespace common;
-
 namespace server {
 
     class CUsersManager {

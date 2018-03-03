@@ -74,12 +74,31 @@ CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_nat
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 
+CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_native_1openDatabase(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_path)
+{
+    try {
+        DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::generated::CApp>(nativeRef);
+        ref->open_database(::djinni::String::toCpp(jniEnv, j_path));
+    } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
+}
+
 CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_native_1connect(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef)
 {
     try {
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
         const auto& ref = ::djinni::objectFromHandleAddress<::generated::CApp>(nativeRef);
         ref->connect();
+    } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
+}
+
+CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_native_1addDialog(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jlong j_userId, jstring j_title)
+{
+    try {
+        DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::generated::CApp>(nativeRef);
+        ref->add_dialog(::djinni::I64::toCpp(jniEnv, j_userId),
+                        ::djinni::String::toCpp(jniEnv, j_title));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 

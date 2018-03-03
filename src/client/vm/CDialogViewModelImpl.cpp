@@ -6,6 +6,11 @@
 
 namespace client {
 
+    CDialogViewModelImpl::CDialogViewModelImpl(std::shared_ptr<CDialog> dialog)
+            : _dialog(std::move(dialog)) {
+
+    }
+
     std::shared_ptr<CViewModel> CDialogViewModelImpl::get_base() {
         return shared_from_this();
     }
@@ -18,12 +23,8 @@ namespace client {
         return _avatar;
     }
 
-    void CDialogViewModelImpl::set_title(std::string title) {
-        _title = std::move(title);
-    }
-
     std::string CDialogViewModelImpl::get_title() {
-        return _title;
+        return _dialog->title;
     }
 
     void CDialogViewModelImpl::set_last_message(std::string lastMessage) {

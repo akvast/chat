@@ -16,7 +16,11 @@ public abstract class CApp {
 
     public abstract void setPassword(String password);
 
+    public abstract void openDatabase(String path);
+
     public abstract void connect();
+
+    public abstract void addDialog(long userId, String title);
 
     public static native CApp instance();
 
@@ -84,11 +88,27 @@ public abstract class CApp {
         private native void native_setPassword(long _nativeRef, String password);
 
         @Override
+        public void openDatabase(String path)
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            native_openDatabase(this.nativeRef, path);
+        }
+        private native void native_openDatabase(long _nativeRef, String path);
+
+        @Override
         public void connect()
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
             native_connect(this.nativeRef);
         }
         private native void native_connect(long _nativeRef);
+
+        @Override
+        public void addDialog(long userId, String title)
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            native_addDialog(this.nativeRef, userId, title);
+        }
+        private native void native_addDialog(long _nativeRef, long userId, String title);
     }
 }

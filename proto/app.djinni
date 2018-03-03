@@ -12,5 +12,10 @@ c_app = interface +c {
     set_email(email: string);
     set_password(password: string);
 
+    open_database(path: string);
+
     connect();
+
+    add_dialog(userId: i64, title: string);
+
 }

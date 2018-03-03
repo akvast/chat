@@ -12,16 +12,18 @@ link_directories(/usr/local/lib)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
+add_definitions(-DSQLITE_HAS_CODEC)
+
 AUX_SOURCE_DIRECTORY(./gen/cpp COMMON_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/common COMMON_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/common/network COMMON_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/common/tools COMMON_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/common/ecdh COMMON_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/common/aes COMMON_SOURCES)
-AUX_SOURCE_DIRECTORY(./src/common/entities COMMON_SOURCES)
+AUX_SOURCE_DIRECTORY(src/server/entities COMMON_SOURCES)
 
 AUX_SOURCE_DIRECTORY(./src/server SERVER_SOURCES)
-AUX_SOURCE_DIRECTORY(src/server/network SERVER_SOURCES)
+AUX_SOURCE_DIRECTORY(./src/server/network SERVER_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/server/database SERVER_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/server/managers SERVER_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/server/tools SERVER_SOURCES)
@@ -31,6 +33,10 @@ AUX_SOURCE_DIRECTORY(./src/client/vm CLIENT_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/client/app CLIENT_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/client/network CLIENT_SOURCES)
 AUX_SOURCE_DIRECTORY(./src/client/adapters CLIENT_SOURCES)
+AUX_SOURCE_DIRECTORY(./src/client/database CLIENT_SOURCES)
+AUX_SOURCE_DIRECTORY(./src/client/managers CLIENT_SOURCES)
+
+AUX_SOURCE_DIRECTORY(./src/client/desktop CLIENT_SOURCES)
 
 include_directories(gen/cpp)
 include_directories(src/common)
@@ -38,11 +44,11 @@ include_directories(src/common/network)
 include_directories(src/common/tools)
 include_directories(src/common/ecdh)
 include_directories(src/common/aes)
-include_directories(src/common/entities)
 
 include_directories(src/server)
 include_directories(src/server/network)
 include_directories(src/server/database)
+include_directories(src/server/entities)
 include_directories(src/server/managers)
 include_directories(src/server/tools)
 
@@ -51,6 +57,11 @@ include_directories(src/client/vm)
 include_directories(src/client/app)
 include_directories(src/client/network)
 include_directories(src/client/adapters)
+include_directories(src/client/database)
+include_directories(src/client/entities)
+include_directories(src/client/managers)
+
+include_directories(src/client/desktop)
 
 # BOOST
 
@@ -94,4 +105,5 @@ add_executable(${CLIENT_PROJECT_NAME} ${COMMON_SOURCES} ${CLIENT_SOURCES})
 target_link_libraries(${CLIENT_PROJECT_NAME}
         ${Boost_LIBRARIES}
         ${OPENSSL_LIBRARIES}
-        protobuf)
+        protobuf
+        dl)

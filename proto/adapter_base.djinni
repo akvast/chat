@@ -1,0 +1,12 @@
+
+c_base_adapter = interface +c {
+
+    set_listener(listener: c_adapter_listener);
+
+    reload();
+}
+
+c_adapter_listener = interface {
+
+    on_changed();
+}

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class CDialogsAdapter {
+    public abstract CBaseAdapter getBase();
+
     public abstract ArrayList<CDialogViewModel> getDialogs();
 
     public static native CDialogsAdapter instance();
@@ -33,6 +35,14 @@ public abstract class CDialogsAdapter {
             destroy();
             super.finalize();
         }
+
+        @Override
+        public CBaseAdapter getBase()
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            return native_getBase(this.nativeRef);
+        }
+        private native CBaseAdapter native_getBase(long _nativeRef);
 
         @Override
         public ArrayList<CDialogViewModel> getDialogs()

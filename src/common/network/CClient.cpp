@@ -37,7 +37,7 @@ namespace common {
 
         _socket = std::make_shared<boost::asio::ip::tcp::socket>(*_ioService);
         _socket->async_connect(endpoint,
-                               boost::bind(&CClient::connect_handler, this,
+                               boost::bind(&CClient::connect_handler, shared_from_this(),
                                            boost::asio::placeholders::error));
     }
 
@@ -48,7 +48,7 @@ namespace common {
 
     void CClient::start_read() {
         _socket->async_receive(boost::asio::buffer(_receivedBuffer.data(), _receivedBuffer.size()),
-                               boost::bind(&CClient::read_handler, this,
+                               boost::bind(&CClient::read_handler, shared_from_this(),
                                            boost::asio::placeholders::error,
                                            boost::asio::placeholders::bytes_transferred));
     }
@@ -74,7 +74,8 @@ namespace common {
         }
 
         _socket->async_send(boost::asio::buffer(sendBuffer.data(), sendBuffer.size()),
-                            boost::bind(&CClient::send_handler, this,
+                            boost::bind(&CClient::send_handler,
+                                        shared_from_this(),
                                         boost::asio::placeholders::error,
                                         boost::asio::placeholders::bytes_transferred));
     }
@@ -89,56 +90,56 @@ namespace common {
 
     // Private:
 
-    void CClient::connect_handler(const boost::system::error_code &error) {
+    void CClient::connect_handler(std::shared_ptr<CClient> client, const boost::system::error_code &error) {
         if (error) {
             CLog::d("Can't connect...");
-            if (_handler)
-                _handler->on_disconnected(shared_from_this());
+            if (client->_handler)
+                client->_handler->on_disconnected(client);
             return;
         }
 
         CLog::d("Connected...");
-        if (_handler)
-            _handler->on_connected(shared_from_this());
+        if (client->_handler)
+            client->_handler->on_connected(client);
 
-        start_read();
+        client->start_read();
     }
 
-    void CClient::read_handler(const boost::system::error_code &error, std::size_t bytesTransferred) {
+    void CClient::read_handler(std::shared_ptr<CClient> client, const boost::system::error_code &error, std::size_t bytesTransferred) {
         if (error) {
             CLog::d("Disconnected...");
-            if (_handler)
-                _handler->on_disconnected(shared_from_this());
+            if (client->_handler)
+                client->_handler->on_disconnected(client->shared_from_this());
             return;
         }
 
         CLog::d("Received %zu bytes.", bytesTransferred);
 
         if (bytesTransferred > 0) {
-            uint8_t *pointer = _receivedBuffer.data();
+            uint8_t *pointer = client->_receivedBuffer.data();
             std::size_t messageSize = 0;
             do {
-                messageSize = parse_next_message(pointer, bytesTransferred);
+                messageSize = client->parse_next_message(pointer, bytesTransferred);
                 bytesTransferred -= messageSize;
                 pointer += messageSize;
             } while (messageSize > 0 && bytesTransferred > 2);
         } else {
             CLog::d("Connection closed.");
-            _socket->close();
+            client->_socket->close();
             return;
         }
 
         if (bytesTransferred > 0) {
             CLog::d("Bad packet.");
-            _socket->close();
+            client->_socket->close();
             return;
         }
 
         // Read next packet:
-        start_read();
+        client->start_read();
     }
 
-    void CClient::send_handler(const boost::system::error_code &error, std::size_t bytesTransferred) {
+    void CClient::send_handler(std::shared_ptr<CClient> client, const boost::system::error_code &error, std::size_t bytesTransferred) {
         CLog::d("Sent %zu bytes.", bytesTransferred);
     }
 

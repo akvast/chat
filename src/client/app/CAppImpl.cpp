@@ -5,6 +5,9 @@
 #include <cinttypes>
 #include "CAppImpl.h"
 #include "CClosureRunnable.h"
+#include "../database/CDatabase.h"
+#include "CDialog.h"
+#include "CDialogsManager.h"
 
 namespace generated {
 
@@ -50,6 +53,15 @@ namespace client {
         return _password;
     }
 
+    void CAppImpl::open_database(const std::string &path) {
+        // TODO:
+
+        CDatabase::init();
+        CDatabase::open(path, "ASAUNRLSAFAFSRC", [](bool isOpened) {
+            // TODO:
+        });
+    }
+
     void CAppImpl::connect() {
         _connection->connect();
     }
@@ -61,6 +73,19 @@ namespace client {
         }
 
         // TODO: Add pending thread
+    }
+
+    void CAppImpl::execute_in_ui(std::function<void()> runnable) {
+        if (_concurrency) {
+            _concurrency->execute_in_ui(std::make_shared<CClosureRunnable>(runnable));
+        }
+    }
+
+    void CAppImpl::add_dialog(int64_t userId, const std::string &title) {
+        auto dialog = std::make_shared<CDialog>();
+        dialog->userId = userId;
+        dialog->title = title;
+        CDialogsManager::save(dialog);
     }
 
 }

@@ -3,8 +3,11 @@
 #include <iostream>
 #include <thread>
 
+#include "CAppImpl.h"
+#include "CConcurrencyImpl.h"
 #include "CClient.h"
 #include "CClientHandler.h"
+#include "../client/database/CDatabase.h"
 
 using namespace client;
 using namespace common;
@@ -16,6 +19,13 @@ int main() {
     auto handler = std::make_shared<CClientHandler>();
     auto client = std::make_shared<CClient>(ioService, handler);
     client->connect("127.0.0.1", 8080);
+
+    CAppImpl::instance()->set_concurrency(std::make_shared<CConcurrencyImpl>());
+
+    CDatabase::init();
+    CDatabase::open("test.db", "password", [](bool isOpened) {
+
+    });
 
     std::thread([=]() {
         ioService->run();

@@ -41,13 +41,13 @@ namespace common {
 
         void set_decrypt_key(std::vector<uint8_t> decryptKey);
 
-    protected:
+    private:
 
-        void connect_handler(const boost::system::error_code &error);
+        static void connect_handler(std::shared_ptr<CClient> client, const boost::system::error_code &error);
 
-        void read_handler(const boost::system::error_code &error, std::size_t bytesTransferred);
+        static void read_handler(std::shared_ptr<CClient> client, const boost::system::error_code &error, std::size_t bytesTransferred);
 
-        void send_handler(const boost::system::error_code &error, std::size_t bytesTransferred);
+        static void send_handler(std::shared_ptr<CClient> client, const boost::system::error_code &error, std::size_t bytesTransferred);
 
         std::size_t parse_next_message(const uint8_t *data, std::size_t size);
 

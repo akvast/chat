@@ -42,9 +42,15 @@ namespace client {
 
         std::string get_password() const;
 
+        void open_database(const std::string &path) override;
+
         void connect() override;
 
         void start_thread(const std::string &name, std::function<void()> runnable);
+
+        void execute_in_ui(std::function<void()> runnable);
+
+        void add_dialog(int64_t userId, const std::string &title) override;
 
     };
 

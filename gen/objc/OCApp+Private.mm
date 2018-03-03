@@ -68,9 +68,23 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
+- (void)openDatabase:(nonnull NSString *)path {
+    try {
+        _cppRefHandle.get()->open_database(::djinni::String::toCpp(path));
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
 - (void)connect {
     try {
         _cppRefHandle.get()->connect();
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (void)addDialog:(int64_t)userId
+            title:(nonnull NSString *)title {
+    try {
+        _cppRefHandle.get()->add_dialog(::djinni::I64::toCpp(userId),
+                                        ::djinni::String::toCpp(title));
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 

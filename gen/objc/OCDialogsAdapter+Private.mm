@@ -6,6 +6,7 @@
 #import "DJICppWrapperCache+Private.h"
 #import "DJIError.h"
 #import "DJIMarshal+Private.h"
+#import "OCBaseAdapter+Private.h"
 #import "OCDialogViewModel+Private.h"
 #include <exception>
 #include <stdexcept>
@@ -35,6 +36,13 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
     try {
         auto objcpp_result_ = ::generated::CDialogsAdapter::instance();
         return ::djinni_generated::CDialogsAdapter::fromCpp(objcpp_result_);
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (nullable OCBaseAdapter *)getBase {
+    try {
+        auto objcpp_result_ = _cppRefHandle.get()->get_base();
+        return ::djinni_generated::CBaseAdapter::fromCpp(objcpp_result_);
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 

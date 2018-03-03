@@ -20,6 +20,11 @@
 
 - (void)setPassword:(nonnull NSString *)password;
 
+- (void)openDatabase:(nonnull NSString *)path;
+
 - (void)connect;
+
+- (void)addDialog:(int64_t)userId
+            title:(nonnull NSString *)title;
 
 @end

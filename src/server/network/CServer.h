@@ -20,8 +20,6 @@ namespace server {
         std::shared_ptr<boost::asio::io_service> _ioService;
         std::shared_ptr<boost::asio::ip::tcp::acceptor> _acceptor;
 
-        std::vector<std::shared_ptr<CClient>> _clients;
-
     public:
 
         explicit CServer(std::shared_ptr<boost::asio::io_service> ioService, int16_t port);
