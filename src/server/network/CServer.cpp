@@ -8,8 +8,11 @@
 #include <iostream>
 
 #include "CClient.h"
-#include "CServerHandler.h"
+#include "CClientHandler.h"
 #include "CLog.h"
+
+#include "CAuthHandler.h"
+#include "CContactsHandler.h"
 
 namespace server {
 
@@ -18,31 +21,39 @@ namespace server {
 
         auto endpoint = boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), static_cast<unsigned short>(port));
         _acceptor = std::make_shared<boost::asio::ip::tcp::acceptor>(*_ioService, endpoint);
+    }
 
+    void CServer::start() {
         start_accept();
     }
 
     // Private:
 
     void CServer::start_accept() {
-        auto handler = std::make_shared<CServerHandler>();
+        auto handler = std::make_shared<CClientHandler>();
+
+        handler->add_message_handler(std::make_shared<CAuthHandler>());
+        handler->add_message_handler(std::make_shared<CContactsHandler>());
+
         auto client = std::make_shared<CClient>(_ioService, handler);
         auto socket = client->get_socket();
 
-        _acceptor->async_accept(*socket, boost::bind(&CServer::handle_accept, this,
-                                                     client, handler,
+        _acceptor->async_accept(*socket, boost::bind(&CServer::handle_accept,
+                                                     shared_from_this(),
+                                                     client,
                                                      boost::asio::placeholders::error));
     }
 
-    void CServer::handle_accept(std::shared_ptr<CClient> client,
-                                      std::shared_ptr<CServerHandler> handler,
-                                      const boost::system::error_code &) {
+    void CServer::handle_accept(std::shared_ptr<CServer> server,
+                                std::shared_ptr<CClient> client,
+                                const boost::system::error_code &error) {
+
         CLog::d("Socket accepted.");
 
-        handler->on_connected(client);
+        client->on_connected();
         client->start_read();
 
-        start_accept();
+        server->start_accept();
     }
 
 }

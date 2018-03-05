@@ -13,9 +13,10 @@ using namespace common;
 
 namespace server {
 
-    class CServerHandler;
+    class CClientHandler;
 
-    class CServer {
+    class CServer
+            : public std::enable_shared_from_this<CServer> {
 
         std::shared_ptr<boost::asio::io_service> _ioService;
         std::shared_ptr<boost::asio::ip::tcp::acceptor> _acceptor;
@@ -24,13 +25,15 @@ namespace server {
 
         explicit CServer(std::shared_ptr<boost::asio::io_service> ioService, int16_t port);
 
+        void start();
+
     private:
 
         void start_accept();
 
-        void handle_accept(std::shared_ptr<CClient> client,
-                           std::shared_ptr<CServerHandler> handler,
-                           const boost::system::error_code &error);
+        static void handle_accept(std::shared_ptr<CServer> server,
+                                  std::shared_ptr<CClient> client,
+                                  const boost::system::error_code &error);
 
     };
 

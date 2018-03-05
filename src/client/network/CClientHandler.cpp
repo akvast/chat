@@ -61,6 +61,10 @@ namespace client {
                 handle_registration_error(message);
                 break;
 
+            case COpCode::ContactsSearchResult:
+                handle_contacts_search_result(message);
+                break;
+
             default:
                 CLog::d("Received unknown message: %" PRId16, static_cast<uint16_t>(message->get_op_code()));
                 break;
@@ -83,6 +87,13 @@ namespace client {
         message->set_password(password);
 
         send(COpCode::Register, message);
+    }
+
+    void CClientHandler::send_contacts_search(int32_t requestId, std::string query) {
+        auto message = std::make_shared<PContactsSearchRequest>();
+        message->set_request_id(requestId);
+        message->set_query(query);
+        send(COpCode::ContactsSearch, message);
     }
 
     // Private:
@@ -175,6 +186,16 @@ namespace client {
         }
 
         CLog::d("ErrorMessage received: %" PRId32 " : %s", errorMessage->code(), errorMessage->message().c_str());
+    }
+
+    void CClientHandler::handle_contacts_search_result(std::shared_ptr<CMessage> message) {
+        auto response = parse<PContactsSearchResponse>(message);
+
+        CLog::d("Search response: %d users", response->users_size());
+        for (int i = 0; i < response->users_size(); ++i) {
+            const PUser &user = response->users(i);
+            CLog::d("\t %s [%" PRId64 "]", user.name().c_str(), user.id());
+        }
     }
 
 }

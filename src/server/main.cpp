@@ -14,6 +14,7 @@ int main() {
     CDatabase::connect("127.0.0.1", "root", "password", "chat");
 
     auto server = std::make_shared<CServer>(ioService, 8080);
+    server->start();
 
     ioService->run();
     return 0;

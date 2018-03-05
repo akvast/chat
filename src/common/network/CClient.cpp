@@ -16,14 +16,23 @@ namespace common {
     CClient::CClient(std::shared_ptr<boost::asio::io_service> ioService,
                      std::shared_ptr<AClientHandler> handler)
             : _ioService(std::move(ioService)),
-              _handler(std::move(handler)) {
+              _handler(std::move(handler)),
+              _state(CClientState::Init) {
 
         _socket = std::make_shared<boost::asio::ip::tcp::socket>(*_ioService);
         _receivedBuffer.resize(2048);
     }
 
-    std::shared_ptr<boost::asio::ip::tcp::socket> CClient::get_socket() {
+    std::shared_ptr<boost::asio::ip::tcp::socket> CClient::get_socket() const {
         return _socket;
+    }
+
+    void CClient::set_state(CClientState state) {
+        _state = state;
+    }
+
+    CClientState CClient::get_state() const {
+        return _state;
     }
 
     void CClient::connect(std::string host, int16_t port) {
@@ -37,8 +46,14 @@ namespace common {
 
         _socket = std::make_shared<boost::asio::ip::tcp::socket>(*_ioService);
         _socket->async_connect(endpoint,
-                               boost::bind(&CClient::connect_handler, shared_from_this(),
+                               boost::bind(&CClient::connect_handler,
+                                           shared_from_this(),
                                            boost::asio::placeholders::error));
+    }
+
+    void CClient::on_connected() {
+        if (_handler)
+            _handler->on_connected(shared_from_this());
     }
 
     void CClient::disconnect() {
@@ -48,7 +63,8 @@ namespace common {
 
     void CClient::start_read() {
         _socket->async_receive(boost::asio::buffer(_receivedBuffer.data(), _receivedBuffer.size()),
-                               boost::bind(&CClient::read_handler, shared_from_this(),
+                               boost::bind(&CClient::read_handler,
+                                           shared_from_this(),
                                            boost::asio::placeholders::error,
                                            boost::asio::placeholders::bytes_transferred));
     }
@@ -105,7 +121,8 @@ namespace common {
         client->start_read();
     }
 
-    void CClient::read_handler(std::shared_ptr<CClient> client, const boost::system::error_code &error, std::size_t bytesTransferred) {
+    void CClient::read_handler(std::shared_ptr<CClient> client, const boost::system::error_code &error,
+                               std::size_t bytesTransferred) {
         if (error) {
             CLog::d("Disconnected...");
             if (client->_handler)
@@ -139,7 +156,8 @@ namespace common {
         client->start_read();
     }
 
-    void CClient::send_handler(std::shared_ptr<CClient> client, const boost::system::error_code &error, std::size_t bytesTransferred) {
+    void CClient::send_handler(std::shared_ptr<CClient> client, const boost::system::error_code &error,
+                               std::size_t bytesTransferred) {
         CLog::d("Sent %zu bytes.", bytesTransferred);
     }
 

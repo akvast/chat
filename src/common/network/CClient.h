@@ -3,6 +3,8 @@
 #include <boost/asio.hpp>
 #include <memory>
 
+#include "CClientState.h"
+
 namespace common {
 
     class CMessage;
@@ -22,14 +24,22 @@ namespace common {
         std::vector<uint8_t> _encryptKey;
         std::vector<uint8_t> _decryptKey;
 
+        CClientState _state;
+
     public:
 
         explicit CClient(std::shared_ptr<boost::asio::io_service> ioService,
-                               std::shared_ptr<AClientHandler> handler);
+                         std::shared_ptr<AClientHandler> handler);
 
-        std::shared_ptr<boost::asio::ip::tcp::socket> get_socket();
+        std::shared_ptr<boost::asio::ip::tcp::socket> get_socket() const;
+
+        void set_state(CClientState state);
+
+        CClientState get_state() const;
 
         void connect(std::string host, int16_t port);
+
+        void on_connected();
 
         void disconnect();
 

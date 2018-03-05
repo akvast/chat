@@ -3,9 +3,11 @@
 //
 
 #include "CUsersManager.h"
-#include "CDatabase.h"
 
 #include <cppconn/prepared_statement.h>
+
+#include "CDatabase.h"
+#include "network_structs.pb.h"
 
 namespace server {
 
@@ -42,6 +44,28 @@ namespace server {
             }
         });
     }
+
+    void CUsersManager::search(const std::string &query, std::function<void(std::vector<PUser>)> callback) {
+        CDatabase::execute([=](sql::Connection *connection) {
+            auto stmt = connection->prepareStatement("SELECT id, name FROM users WHERE name LIKE ? LIMIT 20");
+
+            stmt->setString(1, "%" + query + "%");
+            auto resultSet = stmt->executeQuery();
+
+            std::vector<PUser> userList;
+
+            while (resultSet->next()) {
+                auto user = PUser();
+                user.set_id(resultSet->getInt64(1));
+                user.set_name(resultSet->getString(2));
+                userList.emplace_back(user);
+            }
+
+            callback(userList);
+        });
+    }
+
+    // Private:
 
     std::shared_ptr<CUser> CUsersManager::fetch(sql::ResultSet *resultSet) {
         auto user = std::make_shared<CUser>();

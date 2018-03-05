@@ -10,7 +10,7 @@ using namespace ecdh;
 
 namespace server {
 
-    class CServerHandler
+    class CClientHandler
             : public AClientHandler {
 
         EC_KEY *_ecKey;
@@ -19,13 +19,11 @@ namespace server {
 
     public:
 
-        explicit CServerHandler();
+        explicit CClientHandler();
 
-        ~CServerHandler();
+        ~CClientHandler();
 
         void on_message(std::shared_ptr<CMessage> message) override;
-
-        void send_auth_secceed(std::string name);
 
     private:
 
@@ -36,12 +34,6 @@ namespace server {
         void handle_encrypt_key(std::vector<uint8_t> data);
 
         void send_decrypt_key();
-
-        // Packets:
-
-        void handle_auth(std::shared_ptr<CMessage> message);
-
-        void handle_register(std::shared_ptr<CMessage> message);
 
     };
 

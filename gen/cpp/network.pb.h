@@ -28,6 +28,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/unknown_field_set.h>
+#include "network_structs.pb.h"
 // @@protoc_insertion_point(includes)
 class PAuthMessage;
 class PAuthMessageDefaultTypeInternal;
@@ -35,12 +36,21 @@ extern PAuthMessageDefaultTypeInternal _PAuthMessage_default_instance_;
 class PAuthSucceedMessage;
 class PAuthSucceedMessageDefaultTypeInternal;
 extern PAuthSucceedMessageDefaultTypeInternal _PAuthSucceedMessage_default_instance_;
+class PContactsSearchRequest;
+class PContactsSearchRequestDefaultTypeInternal;
+extern PContactsSearchRequestDefaultTypeInternal _PContactsSearchRequest_default_instance_;
+class PContactsSearchResponse;
+class PContactsSearchResponseDefaultTypeInternal;
+extern PContactsSearchResponseDefaultTypeInternal _PContactsSearchResponse_default_instance_;
 class PErrorMessage;
 class PErrorMessageDefaultTypeInternal;
 extern PErrorMessageDefaultTypeInternal _PErrorMessage_default_instance_;
 class PRegisterMessage;
 class PRegisterMessageDefaultTypeInternal;
 extern PRegisterMessageDefaultTypeInternal _PRegisterMessage_default_instance_;
+class PUser;
+class PUserDefaultTypeInternal;
+extern PUserDefaultTypeInternal _PUser_default_instance_;
 
 namespace protobuf_network_2eproto {
 // Internal implementation detail -- do not call these.
@@ -454,6 +464,200 @@ class PErrorMessage : public ::google::protobuf::Message /* @@protoc_insertion_p
   mutable int _cached_size_;
   friend struct  protobuf_network_2eproto::TableStruct;
 };
+// -------------------------------------------------------------------
+
+class PContactsSearchRequest : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PContactsSearchRequest) */ {
+ public:
+  PContactsSearchRequest();
+  virtual ~PContactsSearchRequest();
+
+  PContactsSearchRequest(const PContactsSearchRequest& from);
+
+  inline PContactsSearchRequest& operator=(const PContactsSearchRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PContactsSearchRequest& default_instance();
+
+  static inline const PContactsSearchRequest* internal_default_instance() {
+    return reinterpret_cast<const PContactsSearchRequest*>(
+               &_PContactsSearchRequest_default_instance_);
+  }
+
+  void Swap(PContactsSearchRequest* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PContactsSearchRequest* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  PContactsSearchRequest* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const PContactsSearchRequest& from);
+  void MergeFrom(const PContactsSearchRequest& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output)
+      const PROTOBUF_FINAL {
+    return InternalSerializeWithCachedSizesToArray(
+        ::google::protobuf::io::CodedOutputStream::IsDefaultSerializationDeterministic(), output);
+  }
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(PContactsSearchRequest* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // string query = 2;
+  void clear_query();
+  static const int kQueryFieldNumber = 2;
+  const ::std::string& query() const;
+  void set_query(const ::std::string& value);
+  #if LANG_CXX11
+  void set_query(::std::string&& value);
+  #endif
+  void set_query(const char* value);
+  void set_query(const char* value, size_t size);
+  ::std::string* mutable_query();
+  ::std::string* release_query();
+  void set_allocated_query(::std::string* query);
+
+  // int32 request_id = 1;
+  void clear_request_id();
+  static const int kRequestIdFieldNumber = 1;
+  ::google::protobuf::int32 request_id() const;
+  void set_request_id(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:PContactsSearchRequest)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::ArenaStringPtr query_;
+  ::google::protobuf::int32 request_id_;
+  mutable int _cached_size_;
+  friend struct  protobuf_network_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class PContactsSearchResponse : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:PContactsSearchResponse) */ {
+ public:
+  PContactsSearchResponse();
+  virtual ~PContactsSearchResponse();
+
+  PContactsSearchResponse(const PContactsSearchResponse& from);
+
+  inline PContactsSearchResponse& operator=(const PContactsSearchResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const PContactsSearchResponse& default_instance();
+
+  static inline const PContactsSearchResponse* internal_default_instance() {
+    return reinterpret_cast<const PContactsSearchResponse*>(
+               &_PContactsSearchResponse_default_instance_);
+  }
+
+  void Swap(PContactsSearchResponse* other);
+
+  // implements Message ----------------------------------------------
+
+  inline PContactsSearchResponse* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  PContactsSearchResponse* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const PContactsSearchResponse& from);
+  void MergeFrom(const PContactsSearchResponse& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output)
+      const PROTOBUF_FINAL {
+    return InternalSerializeWithCachedSizesToArray(
+        ::google::protobuf::io::CodedOutputStream::IsDefaultSerializationDeterministic(), output);
+  }
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(PContactsSearchResponse* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // repeated .PUser users = 2;
+  int users_size() const;
+  void clear_users();
+  static const int kUsersFieldNumber = 2;
+  const ::PUser& users(int index) const;
+  ::PUser* mutable_users(int index);
+  ::PUser* add_users();
+  ::google::protobuf::RepeatedPtrField< ::PUser >*
+      mutable_users();
+  const ::google::protobuf::RepeatedPtrField< ::PUser >&
+      users() const;
+
+  // int32 request_id = 1;
+  void clear_request_id();
+  static const int kRequestIdFieldNumber = 1;
+  ::google::protobuf::int32 request_id() const;
+  void set_request_id(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:PContactsSearchResponse)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::RepeatedPtrField< ::PUser > users_;
+  ::google::protobuf::int32 request_id_;
+  mutable int _cached_size_;
+  friend struct  protobuf_network_2eproto::TableStruct;
+};
 // ===================================================================
 
 
@@ -800,7 +1004,129 @@ inline void PErrorMessage::set_allocated_message(::std::string* message) {
   // @@protoc_insertion_point(field_set_allocated:PErrorMessage.message)
 }
 
+// -------------------------------------------------------------------
+
+// PContactsSearchRequest
+
+// int32 request_id = 1;
+inline void PContactsSearchRequest::clear_request_id() {
+  request_id_ = 0;
+}
+inline ::google::protobuf::int32 PContactsSearchRequest::request_id() const {
+  // @@protoc_insertion_point(field_get:PContactsSearchRequest.request_id)
+  return request_id_;
+}
+inline void PContactsSearchRequest::set_request_id(::google::protobuf::int32 value) {
+  
+  request_id_ = value;
+  // @@protoc_insertion_point(field_set:PContactsSearchRequest.request_id)
+}
+
+// string query = 2;
+inline void PContactsSearchRequest::clear_query() {
+  query_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PContactsSearchRequest::query() const {
+  // @@protoc_insertion_point(field_get:PContactsSearchRequest.query)
+  return query_.GetNoArena();
+}
+inline void PContactsSearchRequest::set_query(const ::std::string& value) {
+  
+  query_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:PContactsSearchRequest.query)
+}
+#if LANG_CXX11
+inline void PContactsSearchRequest::set_query(::std::string&& value) {
+  
+  query_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:PContactsSearchRequest.query)
+}
+#endif
+inline void PContactsSearchRequest::set_query(const char* value) {
+  
+  query_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:PContactsSearchRequest.query)
+}
+inline void PContactsSearchRequest::set_query(const char* value, size_t size) {
+  
+  query_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:PContactsSearchRequest.query)
+}
+inline ::std::string* PContactsSearchRequest::mutable_query() {
+  
+  // @@protoc_insertion_point(field_mutable:PContactsSearchRequest.query)
+  return query_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PContactsSearchRequest::release_query() {
+  // @@protoc_insertion_point(field_release:PContactsSearchRequest.query)
+  
+  return query_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PContactsSearchRequest::set_allocated_query(::std::string* query) {
+  if (query != NULL) {
+    
+  } else {
+    
+  }
+  query_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), query);
+  // @@protoc_insertion_point(field_set_allocated:PContactsSearchRequest.query)
+}
+
+// -------------------------------------------------------------------
+
+// PContactsSearchResponse
+
+// int32 request_id = 1;
+inline void PContactsSearchResponse::clear_request_id() {
+  request_id_ = 0;
+}
+inline ::google::protobuf::int32 PContactsSearchResponse::request_id() const {
+  // @@protoc_insertion_point(field_get:PContactsSearchResponse.request_id)
+  return request_id_;
+}
+inline void PContactsSearchResponse::set_request_id(::google::protobuf::int32 value) {
+  
+  request_id_ = value;
+  // @@protoc_insertion_point(field_set:PContactsSearchResponse.request_id)
+}
+
+// repeated .PUser users = 2;
+inline int PContactsSearchResponse::users_size() const {
+  return users_.size();
+}
+inline void PContactsSearchResponse::clear_users() {
+  users_.Clear();
+}
+inline const ::PUser& PContactsSearchResponse::users(int index) const {
+  // @@protoc_insertion_point(field_get:PContactsSearchResponse.users)
+  return users_.Get(index);
+}
+inline ::PUser* PContactsSearchResponse::mutable_users(int index) {
+  // @@protoc_insertion_point(field_mutable:PContactsSearchResponse.users)
+  return users_.Mutable(index);
+}
+inline ::PUser* PContactsSearchResponse::add_users() {
+  // @@protoc_insertion_point(field_add:PContactsSearchResponse.users)
+  return users_.Add();
+}
+inline ::google::protobuf::RepeatedPtrField< ::PUser >*
+PContactsSearchResponse::mutable_users() {
+  // @@protoc_insertion_point(field_mutable_list:PContactsSearchResponse.users)
+  return &users_;
+}
+inline const ::google::protobuf::RepeatedPtrField< ::PUser >&
+PContactsSearchResponse::users() const {
+  // @@protoc_insertion_point(field_list:PContactsSearchResponse.users)
+  return users_;
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

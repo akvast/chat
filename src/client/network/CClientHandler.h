@@ -28,6 +28,8 @@ namespace client {
 
         void send_register(std::string email, std::string password);
 
+        void send_contacts_search(int32_t requestId, std::string query);
+
     private:
 
         void send_decrypt_key(std::vector<uint8_t> ecdhPublicKey);
@@ -39,6 +41,8 @@ namespace client {
         void handle_auth_error(std::shared_ptr<CMessage> message);
 
         void handle_registration_error(std::shared_ptr<CMessage> message);
+
+        void handle_contacts_search_result(std::shared_ptr<CMessage> message);
 
     };
 

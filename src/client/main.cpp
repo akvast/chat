@@ -57,6 +57,13 @@ int main() {
                 handler->send_register(email, password);
                 break;
             }
+            case 3: {
+                std::string query;
+                std::cout << "Enter search query: ";
+                std::cin >> query;
+                handler->send_contacts_search(1, query);
+                break;
+            }
             default:
                 return 0;
         }

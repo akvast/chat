@@ -16,6 +16,10 @@ namespace common {
         Register = 20,
         RegisterSucceed,
         RegisterError,
+
+        Contacts = 30,
+        ContactsSearch,
+        ContactsSearchResult,
     };
 
 }

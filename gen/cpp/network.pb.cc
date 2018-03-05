@@ -24,13 +24,17 @@ class PRegisterMessageDefaultTypeInternal : public ::google::protobuf::internal:
 } _PRegisterMessage_default_instance_;
 class PErrorMessageDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<PErrorMessage> {
 } _PErrorMessage_default_instance_;
+class PContactsSearchRequestDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<PContactsSearchRequest> {
+} _PContactsSearchRequest_default_instance_;
+class PContactsSearchResponseDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<PContactsSearchResponse> {
+} _PContactsSearchResponse_default_instance_;
 
 namespace protobuf_network_2eproto {
 
 
 namespace {
 
-::google::protobuf::Metadata file_level_metadata[4];
+::google::protobuf::Metadata file_level_metadata[6];
 
 }  // namespace
 
@@ -58,6 +62,18 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _oneof_case_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PErrorMessage, code_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PErrorMessage, message_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PContactsSearchRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PContactsSearchRequest, request_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PContactsSearchRequest, query_),
+  ~0u,  // no _has_bits_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PContactsSearchResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PContactsSearchResponse, request_id_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PContactsSearchResponse, users_),
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
@@ -65,6 +81,8 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 6, -1, sizeof(PAuthSucceedMessage)},
   { 11, -1, sizeof(PRegisterMessage)},
   { 17, -1, sizeof(PErrorMessage)},
+  { 23, -1, sizeof(PContactsSearchRequest)},
+  { 29, -1, sizeof(PContactsSearchResponse)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -72,6 +90,8 @@ static ::google::protobuf::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::google::protobuf::Message*>(&_PAuthSucceedMessage_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_PRegisterMessage_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&_PErrorMessage_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_PContactsSearchRequest_default_instance_),
+  reinterpret_cast<const ::google::protobuf::Message*>(&_PContactsSearchResponse_default_instance_),
 };
 
 namespace {
@@ -92,7 +112,7 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 4);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 6);
 }
 
 }  // namespace
@@ -106,16 +126,23 @@ void TableStruct::Shutdown() {
   delete file_level_metadata[2].reflection;
   _PErrorMessage_default_instance_.Shutdown();
   delete file_level_metadata[3].reflection;
+  _PContactsSearchRequest_default_instance_.Shutdown();
+  delete file_level_metadata[4].reflection;
+  _PContactsSearchResponse_default_instance_.Shutdown();
+  delete file_level_metadata[5].reflection;
 }
 
 void TableStruct::InitDefaultsImpl() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::internal::InitProtobufDefaults();
+  ::protobuf_network_5fstructs_2eproto::InitDefaults();
   _PAuthMessage_default_instance_.DefaultConstruct();
   _PAuthSucceedMessage_default_instance_.DefaultConstruct();
   _PRegisterMessage_default_instance_.DefaultConstruct();
   _PErrorMessage_default_instance_.DefaultConstruct();
+  _PContactsSearchRequest_default_instance_.DefaultConstruct();
+  _PContactsSearchResponse_default_instance_.DefaultConstruct();
 }
 
 void InitDefaults() {
@@ -125,17 +152,22 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\rnetwork.proto\"/\n\014PAuthMessage\022\r\n\005email"
-      "\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"#\n\023PAuthSucceed"
-      "Message\022\014\n\004name\030\001 \001(\t\"3\n\020PRegisterMessag"
-      "e\022\r\n\005email\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\".\n\rPE"
-      "rrorMessage\022\014\n\004code\030\001 \001(\005\022\017\n\007message\030\002 \001"
-      "(\tb\006proto3"
+      "\n\rnetwork.proto\032\025network_structs.proto\"/"
+      "\n\014PAuthMessage\022\r\n\005email\030\001 \001(\t\022\020\n\010passwor"
+      "d\030\002 \001(\t\"#\n\023PAuthSucceedMessage\022\014\n\004name\030\001"
+      " \001(\t\"3\n\020PRegisterMessage\022\r\n\005email\030\001 \001(\t\022"
+      "\020\n\010password\030\002 \001(\t\".\n\rPErrorMessage\022\014\n\004co"
+      "de\030\001 \001(\005\022\017\n\007message\030\002 \001(\t\";\n\026PContactsSe"
+      "archRequest\022\022\n\nrequest_id\030\001 \001(\005\022\r\n\005query"
+      "\030\002 \001(\t\"D\n\027PContactsSearchResponse\022\022\n\nreq"
+      "uest_id\030\001 \001(\005\022\025\n\005users\030\002 \003(\0132\006.PUserb\006pr"
+      "oto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 210);
+      descriptor, 364);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "network.proto", &protobuf_RegisterTypes);
+  ::protobuf_network_5fstructs_2eproto::AddDescriptors();
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
 }
 
@@ -1541,6 +1573,636 @@ void PErrorMessage::set_allocated_message(::std::string* message) {
   }
   message_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), message);
   // @@protoc_insertion_point(field_set_allocated:PErrorMessage.message)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int PContactsSearchRequest::kRequestIdFieldNumber;
+const int PContactsSearchRequest::kQueryFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+PContactsSearchRequest::PContactsSearchRequest()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_network_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:PContactsSearchRequest)
+}
+PContactsSearchRequest::PContactsSearchRequest(const PContactsSearchRequest& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  query_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.query().size() > 0) {
+    query_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.query_);
+  }
+  request_id_ = from.request_id_;
+  // @@protoc_insertion_point(copy_constructor:PContactsSearchRequest)
+}
+
+void PContactsSearchRequest::SharedCtor() {
+  query_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  request_id_ = 0;
+  _cached_size_ = 0;
+}
+
+PContactsSearchRequest::~PContactsSearchRequest() {
+  // @@protoc_insertion_point(destructor:PContactsSearchRequest)
+  SharedDtor();
+}
+
+void PContactsSearchRequest::SharedDtor() {
+  query_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+void PContactsSearchRequest::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* PContactsSearchRequest::descriptor() {
+  protobuf_network_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_network_2eproto::file_level_metadata[4].descriptor;
+}
+
+const PContactsSearchRequest& PContactsSearchRequest::default_instance() {
+  protobuf_network_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+PContactsSearchRequest* PContactsSearchRequest::New(::google::protobuf::Arena* arena) const {
+  PContactsSearchRequest* n = new PContactsSearchRequest;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void PContactsSearchRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:PContactsSearchRequest)
+  query_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  request_id_ = 0;
+}
+
+bool PContactsSearchRequest::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:PContactsSearchRequest)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 request_id = 1;
+      case 1: {
+        if (tag == 8u) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &request_id_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string query = 2;
+      case 2: {
+        if (tag == 18u) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_query()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->query().data(), this->query().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "PContactsSearchRequest.query"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:PContactsSearchRequest)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:PContactsSearchRequest)
+  return false;
+#undef DO_
+}
+
+void PContactsSearchRequest::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:PContactsSearchRequest)
+  // int32 request_id = 1;
+  if (this->request_id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->request_id(), output);
+  }
+
+  // string query = 2;
+  if (this->query().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->query().data(), this->query().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "PContactsSearchRequest.query");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->query(), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:PContactsSearchRequest)
+}
+
+::google::protobuf::uint8* PContactsSearchRequest::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic;  // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:PContactsSearchRequest)
+  // int32 request_id = 1;
+  if (this->request_id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->request_id(), target);
+  }
+
+  // string query = 2;
+  if (this->query().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->query().data(), this->query().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "PContactsSearchRequest.query");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->query(), target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:PContactsSearchRequest)
+  return target;
+}
+
+size_t PContactsSearchRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:PContactsSearchRequest)
+  size_t total_size = 0;
+
+  // string query = 2;
+  if (this->query().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->query());
+  }
+
+  // int32 request_id = 1;
+  if (this->request_id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->request_id());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void PContactsSearchRequest::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:PContactsSearchRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  const PContactsSearchRequest* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const PContactsSearchRequest>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:PContactsSearchRequest)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:PContactsSearchRequest)
+    MergeFrom(*source);
+  }
+}
+
+void PContactsSearchRequest::MergeFrom(const PContactsSearchRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:PContactsSearchRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (from.query().size() > 0) {
+
+    query_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.query_);
+  }
+  if (from.request_id() != 0) {
+    set_request_id(from.request_id());
+  }
+}
+
+void PContactsSearchRequest::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:PContactsSearchRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void PContactsSearchRequest::CopyFrom(const PContactsSearchRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PContactsSearchRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PContactsSearchRequest::IsInitialized() const {
+  return true;
+}
+
+void PContactsSearchRequest::Swap(PContactsSearchRequest* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void PContactsSearchRequest::InternalSwap(PContactsSearchRequest* other) {
+  query_.Swap(&other->query_);
+  std::swap(request_id_, other->request_id_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata PContactsSearchRequest::GetMetadata() const {
+  protobuf_network_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_network_2eproto::file_level_metadata[4];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// PContactsSearchRequest
+
+// int32 request_id = 1;
+void PContactsSearchRequest::clear_request_id() {
+  request_id_ = 0;
+}
+::google::protobuf::int32 PContactsSearchRequest::request_id() const {
+  // @@protoc_insertion_point(field_get:PContactsSearchRequest.request_id)
+  return request_id_;
+}
+void PContactsSearchRequest::set_request_id(::google::protobuf::int32 value) {
+  
+  request_id_ = value;
+  // @@protoc_insertion_point(field_set:PContactsSearchRequest.request_id)
+}
+
+// string query = 2;
+void PContactsSearchRequest::clear_query() {
+  query_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& PContactsSearchRequest::query() const {
+  // @@protoc_insertion_point(field_get:PContactsSearchRequest.query)
+  return query_.GetNoArena();
+}
+void PContactsSearchRequest::set_query(const ::std::string& value) {
+  
+  query_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:PContactsSearchRequest.query)
+}
+#if LANG_CXX11
+void PContactsSearchRequest::set_query(::std::string&& value) {
+  
+  query_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:PContactsSearchRequest.query)
+}
+#endif
+void PContactsSearchRequest::set_query(const char* value) {
+  
+  query_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:PContactsSearchRequest.query)
+}
+void PContactsSearchRequest::set_query(const char* value, size_t size) {
+  
+  query_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:PContactsSearchRequest.query)
+}
+::std::string* PContactsSearchRequest::mutable_query() {
+  
+  // @@protoc_insertion_point(field_mutable:PContactsSearchRequest.query)
+  return query_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* PContactsSearchRequest::release_query() {
+  // @@protoc_insertion_point(field_release:PContactsSearchRequest.query)
+  
+  return query_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void PContactsSearchRequest::set_allocated_query(::std::string* query) {
+  if (query != NULL) {
+    
+  } else {
+    
+  }
+  query_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), query);
+  // @@protoc_insertion_point(field_set_allocated:PContactsSearchRequest.query)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int PContactsSearchResponse::kRequestIdFieldNumber;
+const int PContactsSearchResponse::kUsersFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+PContactsSearchResponse::PContactsSearchResponse()
+  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
+  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
+    protobuf_network_2eproto::InitDefaults();
+  }
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:PContactsSearchResponse)
+}
+PContactsSearchResponse::PContactsSearchResponse(const PContactsSearchResponse& from)
+  : ::google::protobuf::Message(),
+      _internal_metadata_(NULL),
+      users_(from.users_),
+      _cached_size_(0) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  request_id_ = from.request_id_;
+  // @@protoc_insertion_point(copy_constructor:PContactsSearchResponse)
+}
+
+void PContactsSearchResponse::SharedCtor() {
+  request_id_ = 0;
+  _cached_size_ = 0;
+}
+
+PContactsSearchResponse::~PContactsSearchResponse() {
+  // @@protoc_insertion_point(destructor:PContactsSearchResponse)
+  SharedDtor();
+}
+
+void PContactsSearchResponse::SharedDtor() {
+}
+
+void PContactsSearchResponse::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* PContactsSearchResponse::descriptor() {
+  protobuf_network_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_network_2eproto::file_level_metadata[5].descriptor;
+}
+
+const PContactsSearchResponse& PContactsSearchResponse::default_instance() {
+  protobuf_network_2eproto::InitDefaults();
+  return *internal_default_instance();
+}
+
+PContactsSearchResponse* PContactsSearchResponse::New(::google::protobuf::Arena* arena) const {
+  PContactsSearchResponse* n = new PContactsSearchResponse;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void PContactsSearchResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:PContactsSearchResponse)
+  users_.Clear();
+  request_id_ = 0;
+}
+
+bool PContactsSearchResponse::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:PContactsSearchResponse)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // int32 request_id = 1;
+      case 1: {
+        if (tag == 8u) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &request_id_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // repeated .PUser users = 2;
+      case 2: {
+        if (tag == 18u) {
+          DO_(input->IncrementRecursionDepth());
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_users()));
+        } else {
+          goto handle_unusual;
+        }
+        input->UnsafeDecrementRecursionDepth();
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(input, tag));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:PContactsSearchResponse)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:PContactsSearchResponse)
+  return false;
+#undef DO_
+}
+
+void PContactsSearchResponse::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:PContactsSearchResponse)
+  // int32 request_id = 1;
+  if (this->request_id() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->request_id(), output);
+  }
+
+  // repeated .PUser users = 2;
+  for (unsigned int i = 0, n = this->users_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->users(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:PContactsSearchResponse)
+}
+
+::google::protobuf::uint8* PContactsSearchResponse::InternalSerializeWithCachedSizesToArray(
+    bool deterministic, ::google::protobuf::uint8* target) const {
+  (void)deterministic;  // Unused
+  // @@protoc_insertion_point(serialize_to_array_start:PContactsSearchResponse)
+  // int32 request_id = 1;
+  if (this->request_id() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->request_id(), target);
+  }
+
+  // repeated .PUser users = 2;
+  for (unsigned int i = 0, n = this->users_size(); i < n; i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      InternalWriteMessageNoVirtualToArray(
+        2, this->users(i), false, target);
+  }
+
+  // @@protoc_insertion_point(serialize_to_array_end:PContactsSearchResponse)
+  return target;
+}
+
+size_t PContactsSearchResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:PContactsSearchResponse)
+  size_t total_size = 0;
+
+  // repeated .PUser users = 2;
+  {
+    unsigned int count = this->users_size();
+    total_size += 1UL * count;
+    for (unsigned int i = 0; i < count; i++) {
+      total_size +=
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->users(i));
+    }
+  }
+
+  // int32 request_id = 1;
+  if (this->request_id() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->request_id());
+  }
+
+  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = cached_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void PContactsSearchResponse::MergeFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:PContactsSearchResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  const PContactsSearchResponse* source =
+      ::google::protobuf::internal::DynamicCastToGenerated<const PContactsSearchResponse>(
+          &from);
+  if (source == NULL) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:PContactsSearchResponse)
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:PContactsSearchResponse)
+    MergeFrom(*source);
+  }
+}
+
+void PContactsSearchResponse::MergeFrom(const PContactsSearchResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:PContactsSearchResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  users_.MergeFrom(from.users_);
+  if (from.request_id() != 0) {
+    set_request_id(from.request_id());
+  }
+}
+
+void PContactsSearchResponse::CopyFrom(const ::google::protobuf::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:PContactsSearchResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void PContactsSearchResponse::CopyFrom(const PContactsSearchResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:PContactsSearchResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PContactsSearchResponse::IsInitialized() const {
+  return true;
+}
+
+void PContactsSearchResponse::Swap(PContactsSearchResponse* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void PContactsSearchResponse::InternalSwap(PContactsSearchResponse* other) {
+  users_.UnsafeArenaSwap(&other->users_);
+  std::swap(request_id_, other->request_id_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::google::protobuf::Metadata PContactsSearchResponse::GetMetadata() const {
+  protobuf_network_2eproto::protobuf_AssignDescriptorsOnce();
+  return protobuf_network_2eproto::file_level_metadata[5];
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// PContactsSearchResponse
+
+// int32 request_id = 1;
+void PContactsSearchResponse::clear_request_id() {
+  request_id_ = 0;
+}
+::google::protobuf::int32 PContactsSearchResponse::request_id() const {
+  // @@protoc_insertion_point(field_get:PContactsSearchResponse.request_id)
+  return request_id_;
+}
+void PContactsSearchResponse::set_request_id(::google::protobuf::int32 value) {
+  
+  request_id_ = value;
+  // @@protoc_insertion_point(field_set:PContactsSearchResponse.request_id)
+}
+
+// repeated .PUser users = 2;
+int PContactsSearchResponse::users_size() const {
+  return users_.size();
+}
+void PContactsSearchResponse::clear_users() {
+  users_.Clear();
+}
+const ::PUser& PContactsSearchResponse::users(int index) const {
+  // @@protoc_insertion_point(field_get:PContactsSearchResponse.users)
+  return users_.Get(index);
+}
+::PUser* PContactsSearchResponse::mutable_users(int index) {
+  // @@protoc_insertion_point(field_mutable:PContactsSearchResponse.users)
+  return users_.Mutable(index);
+}
+::PUser* PContactsSearchResponse::add_users() {
+  // @@protoc_insertion_point(field_add:PContactsSearchResponse.users)
+  return users_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::PUser >*
+PContactsSearchResponse::mutable_users() {
+  // @@protoc_insertion_point(field_mutable_list:PContactsSearchResponse.users)
+  return &users_;
+}
+const ::google::protobuf::RepeatedPtrField< ::PUser >&
+PContactsSearchResponse::users() const {
+  // @@protoc_insertion_point(field_list:PContactsSearchResponse.users)
+  return users_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

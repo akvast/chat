@@ -30,4 +30,5 @@ mkdir ../gen/cpp
 
 protoc \
    --cpp_out=../gen/cpp \
-   network.proto
+   network.proto \
+   network_structs.proto
