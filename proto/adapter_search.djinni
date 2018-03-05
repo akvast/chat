@@ -1,0 +1,13 @@
+@import "adapter_base.djinni"
+@import "vm_user.djinni"
+
+c_search_adapter = interface +c {
+
+    static instance(): c_search_adapter;
+
+    get_base(): c_base_adapter;
+
+    set_search_query(query: string);
+
+    get_users(): list<c_user_view_model>;
+}

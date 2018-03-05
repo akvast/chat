@@ -40,6 +40,8 @@ namespace client {
 
         explicit CConnection();
 
+        std::shared_ptr<CClientHandler> get_handler() const;
+
         void add_listener(std::shared_ptr<IConnectionListener> listener);
 
         CConnectionState get_state() const;

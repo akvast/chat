@@ -34,6 +34,10 @@ namespace client {
         });
     }
 
+    std::shared_ptr<CClientHandler> CConnection::get_handler() const {
+        return _handler;
+    }
+
     void CConnection::add_listener(std::shared_ptr<IConnectionListener> listener) {
         _lock.lock();
         _listeners.emplace_back(listener);

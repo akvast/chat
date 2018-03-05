@@ -12,6 +12,7 @@
 #include "CLog.h"
 #include "ecies.h"
 #include "network.pb.h"
+#include "CSearchAdapterImpl.h"
 
 using namespace ecdh;
 using namespace common;
@@ -196,6 +197,8 @@ namespace client {
             const PUser &user = response->users(i);
             CLog::d("\t %s [%" PRId64 "]", user.name().c_str(), user.id());
         }
+
+        CSearchAdapterImpl::instance()->on_search_response(response);
     }
 
 }
