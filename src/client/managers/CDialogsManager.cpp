@@ -4,7 +4,7 @@
 
 #include "CDialogsManager.h"
 
-#include "../database/CDatabase.h"
+#include "CDatabase.h"
 #include "CLog.h"
 
 using namespace common;

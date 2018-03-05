@@ -5,7 +5,7 @@
 #include <cinttypes>
 #include "CAppImpl.h"
 #include "CClosureRunnable.h"
-#include "../database/CDatabase.h"
+#include "CDatabase.h"
 #include "CDialog.h"
 #include "CDialogsManager.h"
 

@@ -4,9 +4,11 @@ set(CMAKE_CXX_STANDARD 14)
 
 set(SERVER_PROJECT_NAME chat_server)
 set(CLIENT_PROJECT_NAME chat_client)
+set(COMMON_LIBRARY_NAME chat_common)
 
 project(${SERVER_PROJECT_NAME})
 project(${CLIENT_PROJECT_NAME})
+project(${COMMON_LIBRARY_NAME})
 
 link_directories(/usr/local/lib)
 
@@ -38,31 +40,6 @@ AUX_SOURCE_DIRECTORY(./src/client/managers CLIENT_SOURCES)
 
 AUX_SOURCE_DIRECTORY(./src/client/desktop CLIENT_SOURCES)
 
-include_directories(gen/cpp)
-include_directories(src/common)
-include_directories(src/common/network)
-include_directories(src/common/tools)
-include_directories(src/common/ecdh)
-include_directories(src/common/aes)
-
-include_directories(src/server)
-include_directories(src/server/network)
-include_directories(src/server/database)
-include_directories(src/server/entities)
-include_directories(src/server/managers)
-include_directories(src/server/tools)
-
-include_directories(src/client)
-include_directories(src/client/vm)
-include_directories(src/client/app)
-include_directories(src/client/network)
-include_directories(src/client/adapters)
-include_directories(src/client/database)
-include_directories(src/client/entities)
-include_directories(src/client/managers)
-
-include_directories(src/client/desktop)
-
 # BOOST
 
 set(BOOST_COMPONENTS
@@ -90,20 +67,51 @@ message("OpenSSL libraries: ${OPENSSL_LIBRARIES}")
 include_directories(${OPENSSL_INCLUDE_DIR})
 list(APPEND LIB_LIST ${OPENSSL_LIBRARIES})
 
-### SERVER:
+### Common library:
 
-add_executable(${SERVER_PROJECT_NAME} ${COMMON_SOURCES} ${SERVER_SOURCES})
-target_link_libraries(${SERVER_PROJECT_NAME}
+add_library(${COMMON_LIBRARY_NAME} ${COMMON_SOURCES})
+target_link_libraries(${COMMON_LIBRARY_NAME}
         ${Boost_LIBRARIES}
         ${OPENSSL_LIBRARIES}
-        protobuf
+        protobuf)
+
+### Server executable:
+
+add_executable(${SERVER_PROJECT_NAME} ${SERVER_SOURCES})
+target_link_libraries(${SERVER_PROJECT_NAME}
+        ${COMMON_LIBRARY_NAME}
         mysqlcppconn)
 
-### CLIENT:
+### Client executable:
 
-add_executable(${CLIENT_PROJECT_NAME} ${COMMON_SOURCES} ${CLIENT_SOURCES})
+add_executable(${CLIENT_PROJECT_NAME} ${CLIENT_SOURCES})
 target_link_libraries(${CLIENT_PROJECT_NAME}
-        ${Boost_LIBRARIES}
-        ${OPENSSL_LIBRARIES}
-        protobuf
+        ${COMMON_LIBRARY_NAME}
         dl)
+
+### Includes:
+
+target_include_directories(${COMMON_LIBRARY_NAME} PUBLIC gen/cpp)
+target_include_directories(${COMMON_LIBRARY_NAME} PUBLIC src/common)
+target_include_directories(${COMMON_LIBRARY_NAME} PUBLIC src/common/network)
+target_include_directories(${COMMON_LIBRARY_NAME} PUBLIC src/common/tools)
+target_include_directories(${COMMON_LIBRARY_NAME} PUBLIC src/common/ecdh)
+target_include_directories(${COMMON_LIBRARY_NAME} PUBLIC src/common/aes)
+
+target_include_directories(${SERVER_PROJECT_NAME} PUBLIC src/server)
+target_include_directories(${SERVER_PROJECT_NAME} PUBLIC src/server/network)
+target_include_directories(${SERVER_PROJECT_NAME} PUBLIC src/server/database)
+target_include_directories(${SERVER_PROJECT_NAME} PUBLIC src/server/entities)
+target_include_directories(${SERVER_PROJECT_NAME} PUBLIC src/server/managers)
+target_include_directories(${SERVER_PROJECT_NAME} PUBLIC src/server/tools)
+
+target_include_directories(${CLIENT_PROJECT_NAME} PUBLIC src/client)
+target_include_directories(${CLIENT_PROJECT_NAME} PUBLIC src/client/vm)
+target_include_directories(${CLIENT_PROJECT_NAME} PUBLIC src/client/app)
+target_include_directories(${CLIENT_PROJECT_NAME} PUBLIC src/client/network)
+target_include_directories(${CLIENT_PROJECT_NAME} PUBLIC src/client/adapters)
+target_include_directories(${CLIENT_PROJECT_NAME} PUBLIC src/client/database)
+target_include_directories(${CLIENT_PROJECT_NAME} PUBLIC src/client/entities)
+target_include_directories(${CLIENT_PROJECT_NAME} PUBLIC src/client/managers)
+
+target_include_directories(${CLIENT_PROJECT_NAME} PUBLIC src/client/desktop)
