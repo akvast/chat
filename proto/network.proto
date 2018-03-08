@@ -4,26 +4,25 @@ import "network_structs.proto";
 
 message PAuthMessage {
 
-    string email = 1;
-    string password = 2;
+    string token = 1;
+    string name = 2;
+    string email = 3;
+    string avatar_url = 4;
 }
 
 message PAuthSucceedMessage {
 
-    string name = 1;
+    int64 id = 1;
 }
 
-message PRegisterMessage {
-
-    string email = 1;
-    string password = 2;
-}
 
 message PErrorMessage {
 
     int32 code = 1;
     string message = 2;
 }
+
+// Contacts:
 
 message PContactsSearchRequest {
 

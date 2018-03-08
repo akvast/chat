@@ -75,7 +75,7 @@ namespace client {
         CLog::d("CConnection::on_handshake_complete");
 
         auto app = CAppImpl::instance();
-        _handler->send_authorize(app->get_email(), app->get_password());
+        _handler->send_authorize();
     }
 
     void CConnection::on_authorized() {

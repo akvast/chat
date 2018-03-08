@@ -21,8 +21,10 @@ namespace client {
 
         std::shared_ptr<CConnection> _connection;
 
+        std::string _token;
+        std::string _name;
         std::string _email;
-        std::string _password;
+        std::string _avatarUrl;
 
     public:
 
@@ -34,13 +36,21 @@ namespace client {
 
         void set_port(int32_t port) override;
 
+        void set_token(const std::string &token) override;
+
+        std::string get_token() const;
+
+        void set_name(const std::string &name) override;
+
+        std::string get_name() const;
+
         void set_email(const std::string &email) override;
 
         std::string get_email() const;
 
-        void set_password(const std::string &password) override;
+        void set_avatar_url(const std::string &avatarUrl) override;
 
-        std::string get_password() const;
+        std::string get_avatar_url() const;
 
         void open_database(const std::string &path) override;
 
@@ -49,8 +59,6 @@ namespace client {
         void start_thread(const std::string &name, std::function<void()> runnable);
 
         void execute_in_ui(std::function<void()> runnable);
-
-        void add_dialog(int64_t userId, const std::string &title) override;
 
     };
 

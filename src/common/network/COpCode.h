@@ -13,11 +13,7 @@ namespace common {
         AuthSucceed,
         AuthError,
 
-        Register = 20,
-        RegisterSucceed,
-        RegisterError,
-
-        Contacts = 30,
+        Contacts = 20,
         ContactsSearch,
         ContactsSearchResult,
     };

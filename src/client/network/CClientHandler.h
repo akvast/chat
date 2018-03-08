@@ -24,9 +24,7 @@ namespace client {
 
         void on_message(std::shared_ptr<CMessage> message) override;
 
-        void send_authorize(std::string email, std::string password);
-
-        void send_register(std::string email, std::string password);
+        void send_authorize();
 
         void send_contacts_search(int32_t requestId, std::string query);
 
@@ -39,8 +37,6 @@ namespace client {
         void handle_auth_succeed(std::shared_ptr<CMessage> message);
 
         void handle_auth_error(std::shared_ptr<CMessage> message);
-
-        void handle_registration_error(std::shared_ptr<CMessage> message);
 
         void handle_contacts_search_result(std::shared_ptr<CMessage> message);
 

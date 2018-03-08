@@ -16,15 +16,16 @@
 
 - (void)setPort:(int32_t)port;
 
+- (void)setToken:(nonnull NSString *)token;
+
+- (void)setName:(nonnull NSString *)name;
+
 - (void)setEmail:(nonnull NSString *)email;
 
-- (void)setPassword:(nonnull NSString *)password;
+- (void)setAvatarUrl:(nonnull NSString *)avatarUrl;
 
 - (void)openDatabase:(nonnull NSString *)path;
 
 - (void)connect;
-
-- (void)addDialog:(int64_t)userId
-            title:(nonnull NSString *)title;
 
 @end

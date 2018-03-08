@@ -5,6 +5,7 @@
 #include "CDatabase.h"
 
 #include "CLog.h"
+#include <cppconn/prepared_statement.h>
 
 using namespace common;
 
@@ -40,6 +41,8 @@ namespace server {
                 CLog::d("Can't connect to MySQL server " + host + " : " + database);
                 return;
             }
+
+            s_connection->setClientOption("OPT_CHARSET_NAME", "utf8");
         });
     }
 

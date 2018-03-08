@@ -4,7 +4,8 @@ c_user_view_model = interface +c {
 
     get_base(): c_view_model;
 
-    get_avatar(): string;
     get_name(): string;
+    get_email(): string;
+    get_avatar(): string;
     is_online(): bool;
 }

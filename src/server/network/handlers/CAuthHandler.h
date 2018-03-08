@@ -5,6 +5,7 @@
 #pragma once
 
 #include "AMessageHandler.h"
+#include "CUser.h"
 
 using namespace common;
 
@@ -25,9 +26,7 @@ namespace server {
 
         void handle_auth(std::shared_ptr<CMessage> message);
 
-        void send_auth_succeed(std::string name);
-
-        void handle_register(std::shared_ptr<CMessage> message);
+        void send_auth_succeed(std::shared_ptr<CUser> user);
 
     };
 

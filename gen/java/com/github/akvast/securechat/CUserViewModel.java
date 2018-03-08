@@ -8,9 +8,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public abstract class CUserViewModel {
     public abstract CViewModel getBase();
 
-    public abstract String getAvatar();
-
     public abstract String getName();
+
+    public abstract String getEmail();
+
+    public abstract String getAvatar();
 
     public abstract boolean isOnline();
 
@@ -46,20 +48,28 @@ public abstract class CUserViewModel {
         private native CViewModel native_getBase(long _nativeRef);
 
         @Override
-        public String getAvatar()
-        {
-            assert !this.destroyed.get() : "trying to use a destroyed object";
-            return native_getAvatar(this.nativeRef);
-        }
-        private native String native_getAvatar(long _nativeRef);
-
-        @Override
         public String getName()
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
             return native_getName(this.nativeRef);
         }
         private native String native_getName(long _nativeRef);
+
+        @Override
+        public String getEmail()
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            return native_getEmail(this.nativeRef);
+        }
+        private native String native_getEmail(long _nativeRef);
+
+        @Override
+        public String getAvatar()
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            return native_getAvatar(this.nativeRef);
+        }
+        private native String native_getAvatar(long _nativeRef);
 
         @Override
         public boolean isOnline()

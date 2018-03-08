@@ -56,15 +56,27 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
+- (void)setToken:(nonnull NSString *)token {
+    try {
+        _cppRefHandle.get()->set_token(::djinni::String::toCpp(token));
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (void)setName:(nonnull NSString *)name {
+    try {
+        _cppRefHandle.get()->set_name(::djinni::String::toCpp(name));
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
 - (void)setEmail:(nonnull NSString *)email {
     try {
         _cppRefHandle.get()->set_email(::djinni::String::toCpp(email));
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
-- (void)setPassword:(nonnull NSString *)password {
+- (void)setAvatarUrl:(nonnull NSString *)avatarUrl {
     try {
-        _cppRefHandle.get()->set_password(::djinni::String::toCpp(password));
+        _cppRefHandle.get()->set_avatar_url(::djinni::String::toCpp(avatarUrl));
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
@@ -77,14 +89,6 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
 - (void)connect {
     try {
         _cppRefHandle.get()->connect();
-    } DJINNI_TRANSLATE_EXCEPTIONS()
-}
-
-- (void)addDialog:(int64_t)userId
-            title:(nonnull NSString *)title {
-    try {
-        _cppRefHandle.get()->add_dialog(::djinni::I64::toCpp(userId),
-                                        ::djinni::String::toCpp(title));
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 

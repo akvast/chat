@@ -13,6 +13,7 @@
 #include "ecies.h"
 #include "network.pb.h"
 #include "CSearchAdapterImpl.h"
+#include "CAppImpl.h"
 
 using namespace ecdh;
 using namespace common;
@@ -58,9 +59,6 @@ namespace client {
             case COpCode::AuthError:
                 handle_auth_error(message);
                 break;
-            case COpCode::RegisterError:
-                handle_registration_error(message);
-                break;
 
             case COpCode::ContactsSearchResult:
                 handle_contacts_search_result(message);
@@ -72,22 +70,16 @@ namespace client {
         }
     }
 
-    void CClientHandler::send_authorize(std::string email, std::string password) {
+    void CClientHandler::send_authorize() {
+        const auto &app = CAppImpl::instance();
 
         auto message = std::make_shared<PAuthMessage>();
-        message->set_email(email);
-        message->set_password(password);
+        message->set_token(app->get_token());
+        message->set_name(app->get_name());
+        message->set_email(app->get_email());
+        message->set_avatar_url(app->get_avatar_url());
 
         send(COpCode::Authorize, message);
-    }
-
-    void CClientHandler::send_register(std::string email, std::string password) {
-
-        auto message = std::make_shared<PRegisterMessage>();
-        message->set_email(email);
-        message->set_password(password);
-
-        send(COpCode::Register, message);
     }
 
     void CClientHandler::send_contacts_search(int32_t requestId, std::string query) {
@@ -155,7 +147,7 @@ namespace client {
             return;
         }
 
-        CLog::d("HelloMessage received: " + authSucceedMessage->name());
+        CLog::d("AuthSucceedMessage received: %" PRId64 " userId" + authSucceedMessage->id());
 
         if (auto listener = _listener.lock())
             listener->on_authorized();
@@ -176,17 +168,6 @@ namespace client {
 
         if (auto listener = _listener.lock())
             listener->on_auth_failed();
-    }
-
-    void CClientHandler::handle_registration_error(std::shared_ptr<CMessage> message) {
-        auto errorMessage = parse<PErrorMessage>(message);
-
-        if (!errorMessage) {
-            CLog::d("Invalid ErrorMessage packet received.");
-            return;
-        }
-
-        CLog::d("ErrorMessage received: %" PRId32 " : %s", errorMessage->code(), errorMessage->message().c_str());
     }
 
     void CClientHandler::handle_contacts_search_result(std::shared_ptr<CMessage> message) {

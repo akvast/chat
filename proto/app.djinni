@@ -9,13 +9,13 @@ c_app = interface +c {
     set_host(host: string);
     set_port(port: i32);
 
+    set_token(token: string);
+    set_name(name: string);
     set_email(email: string);
-    set_password(password: string);
+    set_avatar_url(avatarUrl: string);
 
     open_database(path: string);
 
     connect();
-
-    add_dialog(userId: i64, title: string);
 
 }

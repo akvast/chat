@@ -56,6 +56,24 @@ CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_nat
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 
+CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_native_1setToken(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_token)
+{
+    try {
+        DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::generated::CApp>(nativeRef);
+        ref->set_token(::djinni::String::toCpp(jniEnv, j_token));
+    } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
+}
+
+CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_native_1setName(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_name)
+{
+    try {
+        DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
+        const auto& ref = ::djinni::objectFromHandleAddress<::generated::CApp>(nativeRef);
+        ref->set_name(::djinni::String::toCpp(jniEnv, j_name));
+    } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
+}
+
 CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_native_1setEmail(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_email)
 {
     try {
@@ -65,12 +83,12 @@ CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_nat
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 
-CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_native_1setPassword(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_password)
+CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_native_1setAvatarUrl(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_avatarUrl)
 {
     try {
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
         const auto& ref = ::djinni::objectFromHandleAddress<::generated::CApp>(nativeRef);
-        ref->set_password(::djinni::String::toCpp(jniEnv, j_password));
+        ref->set_avatar_url(::djinni::String::toCpp(jniEnv, j_avatarUrl));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 
@@ -89,16 +107,6 @@ CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_nat
         DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
         const auto& ref = ::djinni::objectFromHandleAddress<::generated::CApp>(nativeRef);
         ref->connect();
-    } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
-}
-
-CJNIEXPORT void JNICALL Java_com_github_akvast_securechat_CApp_00024CppProxy_native_1addDialog(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jlong j_userId, jstring j_title)
-{
-    try {
-        DJINNI_FUNCTION_PROLOGUE1(jniEnv, nativeRef);
-        const auto& ref = ::djinni::objectFromHandleAddress<::generated::CApp>(nativeRef);
-        ref->add_dialog(::djinni::I64::toCpp(jniEnv, j_userId),
-                        ::djinni::String::toCpp(jniEnv, j_title));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, )
 }
 

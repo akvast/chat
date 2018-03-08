@@ -12,11 +12,10 @@ namespace server {
     struct CUser {
 
         int32_t id;
-        std::string email;
-        bool  isVerified;
-        int16_t verifyKey;
-        std::string password;
+        std::string token;
         std::string name;
+        std::string email;
+        std::string avatarUrl;
     };
 
 }

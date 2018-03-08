@@ -12,15 +12,17 @@ public abstract class CApp {
 
     public abstract void setPort(int port);
 
+    public abstract void setToken(String token);
+
+    public abstract void setName(String name);
+
     public abstract void setEmail(String email);
 
-    public abstract void setPassword(String password);
+    public abstract void setAvatarUrl(String avatarUrl);
 
     public abstract void openDatabase(String path);
 
     public abstract void connect();
-
-    public abstract void addDialog(long userId, String title);
 
     public static native CApp instance();
 
@@ -72,6 +74,22 @@ public abstract class CApp {
         private native void native_setPort(long _nativeRef, int port);
 
         @Override
+        public void setToken(String token)
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            native_setToken(this.nativeRef, token);
+        }
+        private native void native_setToken(long _nativeRef, String token);
+
+        @Override
+        public void setName(String name)
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            native_setName(this.nativeRef, name);
+        }
+        private native void native_setName(long _nativeRef, String name);
+
+        @Override
         public void setEmail(String email)
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
@@ -80,12 +98,12 @@ public abstract class CApp {
         private native void native_setEmail(long _nativeRef, String email);
 
         @Override
-        public void setPassword(String password)
+        public void setAvatarUrl(String avatarUrl)
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
-            native_setPassword(this.nativeRef, password);
+            native_setAvatarUrl(this.nativeRef, avatarUrl);
         }
-        private native void native_setPassword(long _nativeRef, String password);
+        private native void native_setAvatarUrl(long _nativeRef, String avatarUrl);
 
         @Override
         public void openDatabase(String path)
@@ -102,13 +120,5 @@ public abstract class CApp {
             native_connect(this.nativeRef);
         }
         private native void native_connect(long _nativeRef);
-
-        @Override
-        public void addDialog(long userId, String title)
-        {
-            assert !this.destroyed.get() : "trying to use a destroyed object";
-            native_addDialog(this.nativeRef, userId, title);
-        }
-        private native void native_addDialog(long _nativeRef, long userId, String title);
     }
 }

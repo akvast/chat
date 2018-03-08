@@ -5,6 +5,7 @@
 #include "CSearchAdapterImpl.h"
 #include "CUserViewModelImpl.h"
 #include "CConnection.h"
+#include "CLog.h"
 
 namespace generated {
 
@@ -44,9 +45,13 @@ namespace client {
     void CSearchAdapterImpl::on_search_response(std::shared_ptr<PContactsSearchResponse> response) {
         _users.clear();
         for (int i = 0; i < response->users_size(); ++i) {
+            const auto &user = response->users(i);
+
             auto vm = std::make_shared<CUserViewModelImpl>();
-            vm->set_id(response->users(i).id());
-            vm->set_name(response->users(i).name());
+            vm->set_id(user.id());
+            vm->set_name(user.name());
+            vm->set_email(user.email());
+            vm->set_avatar_url(user.avatar_url());
             _users.emplace_back(vm);
         }
         notify_changed();

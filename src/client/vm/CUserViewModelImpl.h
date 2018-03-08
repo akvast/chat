@@ -18,18 +18,26 @@ namespace client {
 
         int64_t _id;
         std::string _name;
+        std::string _email;
+        std::string _avatarUrl;
 
     public:
+
+        std::shared_ptr<CViewModel> get_base() override;
 
         void set_id(int64_t id);
 
         void set_name(std::string name);
 
-        std::shared_ptr<CViewModel> get_base() override;
+        std::string get_name() override;
+
+        void set_email(std::string email);
+
+        std::string get_email() override;
+
+        void set_avatar_url(std::string avatarUrl);
 
         std::string get_avatar() override;
-
-        std::string get_name() override;
 
         bool is_online() override;
 

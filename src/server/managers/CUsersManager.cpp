@@ -11,9 +11,43 @@
 
 namespace server {
 
+    void CUsersManager::auth(std::shared_ptr<PAuthMessage> message,
+                             std::function<void(std::shared_ptr<CUser>)> callback) {
+
+        CDatabase::execute([=](sql::Connection *connection) {
+            auto updateStmt = connection->prepareStatement("INSERT INTO users (token, name, email, avatarUrl)"
+                                                                   " VALUES (?, ?, ?, ?)"
+                                                                   " ON DUPLICATE KEY UPDATE token = ?, name = ?, avatarUrl = ?");
+
+            updateStmt->setString(1, message->token());
+            updateStmt->setString(2, message->name());
+            updateStmt->setString(3, message->email());
+            updateStmt->setString(4, message->avatar_url());
+
+            updateStmt->setString(5, message->token());
+            updateStmt->setString(6, message->name());
+            updateStmt->setString(7, message->avatar_url());
+
+            updateStmt->execute();
+
+            auto stmt = connection->prepareStatement("SELECT id, token, name, email, avatarUrl"
+                                                             " FROM users"
+                                                             " WHERE token = ?"
+                                                             " LIMIT 1");
+            stmt->setString(1, message->token());
+            auto resultSet = stmt->executeQuery();
+
+            if (resultSet->next()) {
+                callback(fetch(resultSet));
+            } else {
+                callback(nullptr);
+            }
+        });
+    }
+
     void CUsersManager::with_id(int32_t id, std::function<void(std::shared_ptr<CUser>)> callback) {
         CDatabase::execute([=](sql::Connection *connection) {
-            auto stmt = connection->prepareStatement("SELECT id, email, isVerified, verifyKey, password, name"
+            auto stmt = connection->prepareStatement("SELECT id, token, name, email, avatarUrl"
                                                              " FROM users"
                                                              " WHERE id = ?"
                                                              " LIMIT 1");
@@ -28,28 +62,15 @@ namespace server {
         });
     }
 
-    void CUsersManager::with_email(std::string email, std::function<void(std::shared_ptr<CUser>)> callback) {
-        CDatabase::execute([=](sql::Connection *connection) {
-            auto stmt = connection->prepareStatement("SELECT id, email, isVerified, verifyKey, password, name"
-                                                             " FROM users"
-                                                             " WHERE email = ?"
-                                                             " LIMIT 1");
-            stmt->setString(1, email);
-            auto resultSet = stmt->executeQuery();
-
-            if (resultSet->next()) {
-                callback(fetch(resultSet));
-            } else {
-                callback(nullptr);
-            }
-        });
-    }
-
     void CUsersManager::search(const std::string &query, std::function<void(std::vector<PUser>)> callback) {
         CDatabase::execute([=](sql::Connection *connection) {
-            auto stmt = connection->prepareStatement("SELECT id, name FROM users WHERE name LIKE ? LIMIT 20");
+            auto stmt = connection->prepareStatement("SELECT id, name, email, avatarUrl FROM users"
+                                                             " WHERE name LIKE ?"
+                                                             " OR email LIKE ?"
+                                                             " LIMIT 20");
 
             stmt->setString(1, "%" + query + "%");
+            stmt->setString(2, "%" + query + "%");
             auto resultSet = stmt->executeQuery();
 
             std::vector<PUser> userList;
@@ -58,6 +79,8 @@ namespace server {
                 auto user = PUser();
                 user.set_id(resultSet->getInt64(1));
                 user.set_name(resultSet->getString(2));
+                user.set_email(resultSet->getString(3));
+                user.set_avatar_url(resultSet->getString(4));
                 userList.emplace_back(user);
             }
 
@@ -70,11 +93,10 @@ namespace server {
     std::shared_ptr<CUser> CUsersManager::fetch(sql::ResultSet *resultSet) {
         auto user = std::make_shared<CUser>();
         user->id = resultSet->getInt(1);
-        user->email = resultSet->getString(2);
-        user->isVerified = resultSet->getBoolean(3);
-        user->verifyKey = static_cast<int16_t>(resultSet->getInt(4));
-        user->password = resultSet->getString(5);
-        user->name = resultSet->getString(6);
+        user->token = resultSet->getString(2);
+        user->name = resultSet->getString(3);
+        user->email = resultSet->getString(4);
+        user->avatarUrl = resultSet->getString(5);
         return user;
     }
 

@@ -127,6 +127,34 @@ class PUser : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
+  // string email = 3;
+  void clear_email();
+  static const int kEmailFieldNumber = 3;
+  const ::std::string& email() const;
+  void set_email(const ::std::string& value);
+  #if LANG_CXX11
+  void set_email(::std::string&& value);
+  #endif
+  void set_email(const char* value);
+  void set_email(const char* value, size_t size);
+  ::std::string* mutable_email();
+  ::std::string* release_email();
+  void set_allocated_email(::std::string* email);
+
+  // string avatar_url = 4;
+  void clear_avatar_url();
+  static const int kAvatarUrlFieldNumber = 4;
+  const ::std::string& avatar_url() const;
+  void set_avatar_url(const ::std::string& value);
+  #if LANG_CXX11
+  void set_avatar_url(::std::string&& value);
+  #endif
+  void set_avatar_url(const char* value);
+  void set_avatar_url(const char* value, size_t size);
+  ::std::string* mutable_avatar_url();
+  ::std::string* release_avatar_url();
+  void set_allocated_avatar_url(::std::string* avatar_url);
+
   // int64 id = 1;
   void clear_id();
   static const int kIdFieldNumber = 1;
@@ -138,6 +166,8 @@ class PUser : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::ArenaStringPtr name_;
+  ::google::protobuf::internal::ArenaStringPtr email_;
+  ::google::protobuf::internal::ArenaStringPtr avatar_url_;
   ::google::protobuf::int64 id_;
   mutable int _cached_size_;
   friend struct  protobuf_network_5fstructs_2eproto::TableStruct;
@@ -214,6 +244,110 @@ inline void PUser::set_allocated_name(::std::string* name) {
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:PUser.name)
+}
+
+// string email = 3;
+inline void PUser::clear_email() {
+  email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PUser::email() const {
+  // @@protoc_insertion_point(field_get:PUser.email)
+  return email_.GetNoArena();
+}
+inline void PUser::set_email(const ::std::string& value) {
+  
+  email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:PUser.email)
+}
+#if LANG_CXX11
+inline void PUser::set_email(::std::string&& value) {
+  
+  email_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:PUser.email)
+}
+#endif
+inline void PUser::set_email(const char* value) {
+  
+  email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:PUser.email)
+}
+inline void PUser::set_email(const char* value, size_t size) {
+  
+  email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:PUser.email)
+}
+inline ::std::string* PUser::mutable_email() {
+  
+  // @@protoc_insertion_point(field_mutable:PUser.email)
+  return email_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PUser::release_email() {
+  // @@protoc_insertion_point(field_release:PUser.email)
+  
+  return email_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PUser::set_allocated_email(::std::string* email) {
+  if (email != NULL) {
+    
+  } else {
+    
+  }
+  email_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), email);
+  // @@protoc_insertion_point(field_set_allocated:PUser.email)
+}
+
+// string avatar_url = 4;
+inline void PUser::clear_avatar_url() {
+  avatar_url_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline const ::std::string& PUser::avatar_url() const {
+  // @@protoc_insertion_point(field_get:PUser.avatar_url)
+  return avatar_url_.GetNoArena();
+}
+inline void PUser::set_avatar_url(const ::std::string& value) {
+  
+  avatar_url_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:PUser.avatar_url)
+}
+#if LANG_CXX11
+inline void PUser::set_avatar_url(::std::string&& value) {
+  
+  avatar_url_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:PUser.avatar_url)
+}
+#endif
+inline void PUser::set_avatar_url(const char* value) {
+  
+  avatar_url_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:PUser.avatar_url)
+}
+inline void PUser::set_avatar_url(const char* value, size_t size) {
+  
+  avatar_url_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:PUser.avatar_url)
+}
+inline ::std::string* PUser::mutable_avatar_url() {
+  
+  // @@protoc_insertion_point(field_mutable:PUser.avatar_url)
+  return avatar_url_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* PUser::release_avatar_url() {
+  // @@protoc_insertion_point(field_release:PUser.avatar_url)
+  
+  return avatar_url_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void PUser::set_allocated_avatar_url(::std::string* avatar_url) {
+  if (avatar_url != NULL) {
+    
+  } else {
+    
+  }
+  avatar_url_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), avatar_url);
+  // @@protoc_insertion_point(field_set_allocated:PUser.avatar_url)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS

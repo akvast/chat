@@ -37,6 +37,22 @@ namespace client {
         _connection->set_port(static_cast<int16_t>(port));
     }
 
+    void CAppImpl::set_token(const std::string &token) {
+        _token = token;
+    }
+
+    std::string CAppImpl::get_token() const {
+        return _token;
+    }
+
+    void CAppImpl::set_name(const std::string &name) {
+        _name = name;
+    }
+
+    std::string CAppImpl::get_name() const {
+        return _name;
+    }
+
     void CAppImpl::set_email(const std::string &email) {
         _email = email;
     }
@@ -45,12 +61,12 @@ namespace client {
         return _email;
     }
 
-    void CAppImpl::set_password(const std::string &password) {
-        _password = password;
+    void CAppImpl::set_avatar_url(const std::string &avatarUrl) {
+        _avatarUrl = avatarUrl;
     }
 
-    std::string CAppImpl::get_password() const {
-        return _password;
+    std::string CAppImpl::get_avatar_url() const {
+        return _avatarUrl;
     }
 
     void CAppImpl::open_database(const std::string &path) {
@@ -79,13 +95,6 @@ namespace client {
         if (_concurrency) {
             _concurrency->execute_in_ui(std::make_shared<CClosureRunnable>(runnable));
         }
-    }
-
-    void CAppImpl::add_dialog(int64_t userId, const std::string &title) {
-        auto dialog = std::make_shared<CDialog>();
-        dialog->userId = userId;
-        dialog->title = title;
-        CDialogsManager::save(dialog);
     }
 
 }

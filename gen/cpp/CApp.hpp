@@ -23,15 +23,17 @@ public:
 
     virtual void set_port(int32_t port) = 0;
 
+    virtual void set_token(const std::string & token) = 0;
+
+    virtual void set_name(const std::string & name) = 0;
+
     virtual void set_email(const std::string & email) = 0;
 
-    virtual void set_password(const std::string & password) = 0;
+    virtual void set_avatar_url(const std::string & avatarUrl) = 0;
 
     virtual void open_database(const std::string & path) = 0;
 
     virtual void connect() = 0;
-
-    virtual void add_dialog(int64_t userId, const std::string & title) = 0;
 };
 
 }  // namespace generated

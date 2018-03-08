@@ -9,9 +9,11 @@
 
 - (nullable OCViewModel *)getBase;
 
-- (nonnull NSString *)getAvatar;
-
 - (nonnull NSString *)getName;
+
+- (nonnull NSString *)getEmail;
+
+- (nonnull NSString *)getAvatar;
 
 - (BOOL)isOnline;
 

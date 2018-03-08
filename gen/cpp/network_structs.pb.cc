@@ -35,6 +35,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   ~0u,  // no _oneof_case_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PUser, id_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PUser, name_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PUser, email_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PUser, avatar_url_),
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
@@ -87,11 +89,12 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\025network_structs.proto\"!\n\005PUser\022\n\n\002id\030\001"
-      " \001(\003\022\014\n\004name\030\002 \001(\tb\006proto3"
+      "\n\025network_structs.proto\"D\n\005PUser\022\n\n\002id\030\001"
+      " \001(\003\022\014\n\004name\030\002 \001(\t\022\r\n\005email\030\003 \001(\t\022\022\n\nava"
+      "tar_url\030\004 \001(\tb\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 66);
+      descriptor, 101);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "network_structs.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -116,6 +119,8 @@ struct StaticDescriptorInitializer {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int PUser::kIdFieldNumber;
 const int PUser::kNameFieldNumber;
+const int PUser::kEmailFieldNumber;
+const int PUser::kAvatarUrlFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 PUser::PUser()
@@ -135,12 +140,22 @@ PUser::PUser(const PUser& from)
   if (from.name().size() > 0) {
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
+  email_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.email().size() > 0) {
+    email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.email_);
+  }
+  avatar_url_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (from.avatar_url().size() > 0) {
+    avatar_url_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.avatar_url_);
+  }
   id_ = from.id_;
   // @@protoc_insertion_point(copy_constructor:PUser)
 }
 
 void PUser::SharedCtor() {
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  email_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  avatar_url_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   id_ = GOOGLE_LONGLONG(0);
   _cached_size_ = 0;
 }
@@ -152,6 +167,8 @@ PUser::~PUser() {
 
 void PUser::SharedDtor() {
   name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  email_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  avatar_url_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 void PUser::SetCachedSize(int size) const {
@@ -180,6 +197,8 @@ PUser* PUser::New(::google::protobuf::Arena* arena) const {
 void PUser::Clear() {
 // @@protoc_insertion_point(message_clear_start:PUser)
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  avatar_url_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   id_ = GOOGLE_LONGLONG(0);
 }
 
@@ -215,6 +234,36 @@ bool PUser::MergePartialFromCodedStream(
             this->name().data(), this->name().length(),
             ::google::protobuf::internal::WireFormatLite::PARSE,
             "PUser.name"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string email = 3;
+      case 3: {
+        if (tag == 26u) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_email()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->email().data(), this->email().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "PUser.email"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string avatar_url = 4;
+      case 4: {
+        if (tag == 34u) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_avatar_url()));
+          DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+            this->avatar_url().data(), this->avatar_url().length(),
+            ::google::protobuf::internal::WireFormatLite::PARSE,
+            "PUser.avatar_url"));
         } else {
           goto handle_unusual;
         }
@@ -260,6 +309,26 @@ void PUser::SerializeWithCachedSizes(
       2, this->name(), output);
   }
 
+  // string email = 3;
+  if (this->email().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->email().data(), this->email().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "PUser.email");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->email(), output);
+  }
+
+  // string avatar_url = 4;
+  if (this->avatar_url().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->avatar_url().data(), this->avatar_url().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "PUser.avatar_url");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      4, this->avatar_url(), output);
+  }
+
   // @@protoc_insertion_point(serialize_end:PUser)
 }
 
@@ -283,6 +352,28 @@ void PUser::SerializeWithCachedSizes(
         2, this->name(), target);
   }
 
+  // string email = 3;
+  if (this->email().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->email().data(), this->email().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "PUser.email");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        3, this->email(), target);
+  }
+
+  // string avatar_url = 4;
+  if (this->avatar_url().size() > 0) {
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+      this->avatar_url().data(), this->avatar_url().length(),
+      ::google::protobuf::internal::WireFormatLite::SERIALIZE,
+      "PUser.avatar_url");
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        4, this->avatar_url(), target);
+  }
+
   // @@protoc_insertion_point(serialize_to_array_end:PUser)
   return target;
 }
@@ -296,6 +387,20 @@ size_t PUser::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->name());
+  }
+
+  // string email = 3;
+  if (this->email().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->email());
+  }
+
+  // string avatar_url = 4;
+  if (this->avatar_url().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->avatar_url());
   }
 
   // int64 id = 1;
@@ -335,6 +440,14 @@ void PUser::MergeFrom(const PUser& from) {
 
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
   }
+  if (from.email().size() > 0) {
+
+    email_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.email_);
+  }
+  if (from.avatar_url().size() > 0) {
+
+    avatar_url_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.avatar_url_);
+  }
   if (from.id() != 0) {
     set_id(from.id());
   }
@@ -364,6 +477,8 @@ void PUser::Swap(PUser* other) {
 }
 void PUser::InternalSwap(PUser* other) {
   name_.Swap(&other->name_);
+  email_.Swap(&other->email_);
+  avatar_url_.Swap(&other->avatar_url_);
   std::swap(id_, other->id_);
   std::swap(_cached_size_, other->_cached_size_);
 }
@@ -440,6 +555,110 @@ void PUser::set_allocated_name(::std::string* name) {
   }
   name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
   // @@protoc_insertion_point(field_set_allocated:PUser.name)
+}
+
+// string email = 3;
+void PUser::clear_email() {
+  email_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& PUser::email() const {
+  // @@protoc_insertion_point(field_get:PUser.email)
+  return email_.GetNoArena();
+}
+void PUser::set_email(const ::std::string& value) {
+  
+  email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:PUser.email)
+}
+#if LANG_CXX11
+void PUser::set_email(::std::string&& value) {
+  
+  email_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:PUser.email)
+}
+#endif
+void PUser::set_email(const char* value) {
+  
+  email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:PUser.email)
+}
+void PUser::set_email(const char* value, size_t size) {
+  
+  email_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:PUser.email)
+}
+::std::string* PUser::mutable_email() {
+  
+  // @@protoc_insertion_point(field_mutable:PUser.email)
+  return email_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* PUser::release_email() {
+  // @@protoc_insertion_point(field_release:PUser.email)
+  
+  return email_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void PUser::set_allocated_email(::std::string* email) {
+  if (email != NULL) {
+    
+  } else {
+    
+  }
+  email_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), email);
+  // @@protoc_insertion_point(field_set_allocated:PUser.email)
+}
+
+// string avatar_url = 4;
+void PUser::clear_avatar_url() {
+  avatar_url_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+const ::std::string& PUser::avatar_url() const {
+  // @@protoc_insertion_point(field_get:PUser.avatar_url)
+  return avatar_url_.GetNoArena();
+}
+void PUser::set_avatar_url(const ::std::string& value) {
+  
+  avatar_url_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:PUser.avatar_url)
+}
+#if LANG_CXX11
+void PUser::set_avatar_url(::std::string&& value) {
+  
+  avatar_url_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:PUser.avatar_url)
+}
+#endif
+void PUser::set_avatar_url(const char* value) {
+  
+  avatar_url_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:PUser.avatar_url)
+}
+void PUser::set_avatar_url(const char* value, size_t size) {
+  
+  avatar_url_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:PUser.avatar_url)
+}
+::std::string* PUser::mutable_avatar_url() {
+  
+  // @@protoc_insertion_point(field_mutable:PUser.avatar_url)
+  return avatar_url_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+::std::string* PUser::release_avatar_url() {
+  // @@protoc_insertion_point(field_release:PUser.avatar_url)
+  
+  return avatar_url_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+void PUser::set_allocated_avatar_url(::std::string* avatar_url) {
+  if (avatar_url != NULL) {
+    
+  } else {
+    
+  }
+  avatar_url_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), avatar_url);
+  // @@protoc_insertion_point(field_set_allocated:PUser.avatar_url)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

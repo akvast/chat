@@ -16,9 +16,11 @@ public:
 
     virtual std::shared_ptr<CViewModel> get_base() = 0;
 
-    virtual std::string get_avatar() = 0;
-
     virtual std::string get_name() = 0;
+
+    virtual std::string get_email() = 0;
+
+    virtual std::string get_avatar() = 0;
 
     virtual bool is_online() = 0;
 };
